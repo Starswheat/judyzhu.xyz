@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>baking lab - judy zhu</title>
+  <meta name="description" content="A warm Japanese bakery chatbot that generates chori-pan recipes from texture, flavor, and size." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="baking.css" />
+</head>
+<body>
+  <div class="crumb-field" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <header class="bakery-nav">
+    <a class="home-link" href="../index.html" aria-label="Back to portfolio">
+      <span class="home-icon">J</span>
+      <span>judy zhu</span>
+    </a>
+    <span class="nav-chip">pan memo v0.1</span>
+  </header>
+
+  <main class="bakery-app">
+    <section class="welcome">
+      <div class="screen top-screen">
+        <img src="../assets/baking-mascots.png" alt="Original cute bread mascots and cats welcoming visitors to a warm Japanese bakery." />
+        <div class="screen-gloss" aria-hidden="true"></div>
+      </div>
+
+      <div class="title-stack">
+        <p class="kicker">調理パン通信</p>
+        <h1>bread friend recipe booth</h1>
+        <p class="subtitle">
+          choose a crumb mood, a flavor constellation, and a snack scale.
+          the bakery bot will sketch a Japanese chori-pan recipe.
+        </p>
+      </div>
+    </section>
+
+    <section class="console" aria-label="Bread recipe chatbot">
+      <div class="hinge" aria-hidden="true"></div>
+
+      <div class="screen bottom-screen">
+        <div class="chat-header">
+          <div>
+            <span class="signal"></span>
+            <span>pan-chan online</span>
+          </div>
+          <span class="cat-face" aria-hidden="true">=^.^=</span>
+        </div>
+
+        <div class="chat-log" id="chatLog" aria-live="polite">
+          <div class="message bot">
+            <span class="avatar bun" aria-hidden="true"></span>
+            <p>irasshaimase. tell me the bread feeling and i will make a little recipe card.</p>
+          </div>
+        </div>
+
+        <form class="controls" id="recipeForm">
+          <fieldset class="control-card texture-card">
+            <legend>texture</legend>
+            <div class="range-labels">
+              <span>fuwafuwa</span>
+              <span>stodgy</span>
+            </div>
+            <input id="textureRange" name="texture" type="range" min="0" max="100" value="28" />
+            <div class="texture-meter" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-card">
+            <legend>flavor</legend>
+            <div class="option-grid flavor-grid" id="flavorOptions">
+              <button type="button" class="choice active" data-flavor="sweet">
+                <span class="mini-icon fruit"></span>
+                sweet
+              </button>
+              <button type="button" class="choice" data-flavor="savory">
+                <span class="mini-icon sausage"></span>
+                savory
+              </button>
+              <button type="button" class="choice" data-flavor="bitter">
+                <span class="mini-icon matcha"></span>
+                bitter
+              </button>
+              <button type="button" class="choice" data-flavor="sour">
+                <span class="mini-icon citrus"></span>
+                sour
+              </button>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-card">
+            <legend>size</legend>
+            <div class="option-grid size-grid" id="sizeOptions">
+              <button type="button" class="choice" data-size="bite">bite size</button>
+              <button type="button" class="choice active" data-size="handful">handful</button>
+              <button type="button" class="choice" data-size="arm">arm length</button>
+            </div>
+          </fieldset>
+
+          <button class="generate-btn" type="submit">
+            <span class="spark" aria-hidden="true"></span>
+            bake recipe
+          </button>
+        </form>
+      </div>
+
+      <aside class="recipe-card" id="recipeCard">
+        <div class="recipe-top">
+          <span class="recipe-label">generated card</span>
+          <span class="stamp">パン</span>
+        </div>
+        <h2 id="recipeName">nectarine custard koppe pan</h2>
+        <p id="recipeSummary">a soft milk-bread chori-pan with juicy fruit, mellow custard, and a tiny toasted edge.</p>
+
+        <div class="recipe-grid">
+          <div>
+            <h3>dough</h3>
+            <p id="recipeDough">tangzhong milk dough, butter-kissed and proofed until gently wobbling.</p>
+          </div>
+          <div>
+            <h3>filling</h3>
+            <p id="recipeFilling">nectarine, banana, blueberry jam, and vanilla custard.</p>
+          </div>
+          <div>
+            <h3>shape</h3>
+            <p id="recipeShape">handful koppe roll with a shallow top split.</p>
+          </div>
+          <div>
+            <h3>bake</h3>
+            <p id="recipeBake">176 C / 350 F for 14-16 min, then brush with warm butter.</p>
+          </div>
+        </div>
+
+        <ol class="recipe-steps" id="recipeSteps"></ol>
+      </aside>
+    </section>
+  </main>
+
+  <script src="baking.js" defer></script>
+</body>
+</html>
