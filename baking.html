@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FBE8C8" />
+  <title>judy's bakery 🍞 — knead a recipe</title>
+  <meta name="description" content="a tiny chatbot bakery — pick a texture, a flavor, a size, and i'll bake you a recipe." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=DotGothic16&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="baking.css" />
+</head>
+<body>
+  <!-- ambient steam / sparkles layer -->
+  <div class="ambient" aria-hidden="true">
+    <span class="puff puff-1"></span>
+    <span class="puff puff-2"></span>
+    <span class="puff puff-3"></span>
+    <span class="sparkle s1">✦</span>
+    <span class="sparkle s2">✦</span>
+    <span class="sparkle s3">✧</span>
+  </div>
+
+  <!-- soft back link -->
+  <a class="back-home" href="./" aria-label="back to judy zhu">
+    <span class="arrow">‹</span> <span class="label">home</span>
+  </a>
+
+  <main class="stage">
+    <!-- character stage -->
+    <section class="character-stage">
+      <!-- peeking cat (top right) -->
+      <svg class="cat cat-peek" viewBox="0 0 80 60" aria-hidden="true">
+        <defs>
+          <radialGradient id="catBlush" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFB8A8" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#FFB8A8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- ears -->
+        <path d="M14 28 L8 10 L24 22 Z" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M14 28 L8 10 L24 22 Z" fill="#FFB088" opacity="0.5" transform="translate(0.8 1.5) scale(0.55 0.55) translate(8 6)"/>
+        <path d="M52 22 L68 10 L62 28 Z" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M52 22 L68 10 L62 28 Z" fill="#FFB088" opacity="0.5" transform="translate(-0.8 1.5) scale(0.55 0.55) translate(46 6)"/>
+        <!-- head -->
+        <ellipse cx="38" cy="38" rx="26" ry="22" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.8"/>
+        <!-- orange spots -->
+        <ellipse cx="22" cy="34" rx="8" ry="6" fill="#F2B07A" opacity="0.8"/>
+        <ellipse cx="54" cy="40" rx="7" ry="5" fill="#F2B07A" opacity="0.8"/>
+        <!-- blush -->
+        <circle cx="22" cy="44" r="5" fill="url(#catBlush)"/>
+        <circle cx="54" cy="44" r="5" fill="url(#catBlush)"/>
+        <!-- eyes (closed, content) -->
+        <path d="M26 38 q3 -3 6 0" fill="none" stroke="#3D2A1F" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M44 38 q3 -3 6 0" fill="none" stroke="#3D2A1F" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- mouth -->
+        <path d="M37 44 q2 2 4 0" fill="none" stroke="#3D2A1F" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M37 44 q-2 2 -4 0" fill="none" stroke="#3D2A1F" stroke-width="1.4" stroke-linecap="round"/>
+        <!-- whiskers -->
+        <path d="M6 40 l8 1 M6 44 l8 0 M62 40 l8 1 M62 44 l8 0" stroke="#7A5439" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+      </svg>
+
+      <!-- main bread character (anpan-inspired) -->
+      <div class="character-wrap">
+        <svg class="character" viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <radialGradient id="breadFill" cx="50%" cy="42%" r="58%">
+              <stop offset="0%" stop-color="#F7C994"/>
+              <stop offset="60%" stop-color="#D9904E"/>
+              <stop offset="100%" stop-color="#A8642F"/>
+            </radialGradient>
+            <radialGradient id="cheek" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F08368" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#F08368" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="shine" cx="35%" cy="30%" r="40%">
+              <stop offset="0%" stop-color="#FFF3DD" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#FFF3DD" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="0.6"/>
+            </filter>
+          </defs>
+
+          <!-- shadow under bread -->
+          <ellipse cx="120" cy="218" rx="76" ry="9" fill="#3D2A1F" opacity="0.12"/>
+
+          <!-- bread body -->
+          <g class="char-bob">
+            <!-- main loaf -->
+            <path d="
+              M48 130
+              C 38 70, 110 36, 142 50
+              C 196 36, 210 110, 196 142
+              C 210 184, 162 210, 122 198
+              C 78 214, 32 188, 40 152
+              C 32 142, 38 132, 48 130 Z"
+              fill="url(#breadFill)" stroke="#6E3F1F" stroke-width="2.4" stroke-linejoin="round"/>
+            <!-- glaze shine -->
+            <ellipse cx="86" cy="92" rx="40" ry="22" fill="url(#shine)"/>
+            <!-- sesame seeds -->
+            <g fill="#5C3A1B" opacity="0.85">
+              <ellipse cx="78" cy="76" rx="2.4" ry="1.6" transform="rotate(-20 78 76)"/>
+              <ellipse cx="100" cy="68" rx="2.4" ry="1.6" transform="rotate(15 100 68)"/>
+              <ellipse cx="138" cy="64" rx="2.4" ry="1.6" transform="rotate(-10 138 64)"/>
+              <ellipse cx="170" cy="80" rx="2.4" ry="1.6" transform="rotate(28 170 80)"/>
+              <ellipse cx="60" cy="120" rx="2.4" ry="1.6" transform="rotate(40 60 120)"/>
+              <ellipse cx="186" cy="120" rx="2.4" ry="1.6" transform="rotate(-30 186 120)"/>
+              <ellipse cx="70" cy="170" rx="2.4" ry="1.6" transform="rotate(-15 70 170)"/>
+              <ellipse cx="178" cy="172" rx="2.4" ry="1.6" transform="rotate(20 178 172)"/>
+            </g>
+            <!-- cheeks -->
+            <circle cx="74" cy="146" r="14" fill="url(#cheek)"/>
+            <circle cx="172" cy="146" r="14" fill="url(#cheek)"/>
+            <!-- eyes -->
+            <g class="char-eyes">
+              <ellipse cx="98" cy="128" rx="6.5" ry="8" fill="#2A1A10"/>
+              <ellipse cx="146" cy="128" rx="6.5" ry="8" fill="#2A1A10"/>
+              <circle cx="100" cy="125" r="2.2" fill="#FFF6EA"/>
+              <circle cx="148" cy="125" r="2.2" fill="#FFF6EA"/>
+            </g>
+            <!-- mouth -->
+            <path class="char-mouth" d="M114 152 q8 6 16 0" fill="none" stroke="#3D2114" stroke-width="2.4" stroke-linecap="round"/>
+            <!-- tiny tongue -->
+            <path d="M118 155 q4 4 8 0 q-4 1 -8 0 z" fill="#F08368" opacity="0.9"/>
+          </g>
+        </svg>
+
+        <!-- little side cat -->
+        <svg class="cat cat-side" viewBox="0 0 90 90" aria-hidden="true">
+          <ellipse cx="45" cy="78" rx="22" ry="5" fill="#3D2A1F" opacity="0.12"/>
+          <!-- body -->
+          <path d="M22 70 q-2 -28 23 -30 q25 2 23 30 z" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.8" stroke-linejoin="round"/>
+          <!-- ears -->
+          <path d="M28 44 L24 28 L38 38 Z" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M62 44 L66 28 L52 38 Z" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.6" stroke-linejoin="round"/>
+          <!-- patches -->
+          <ellipse cx="32" cy="60" rx="6" ry="8" fill="#F2B07A" opacity="0.85"/>
+          <ellipse cx="58" cy="64" rx="5" ry="6" fill="#F2B07A" opacity="0.85"/>
+          <!-- face -->
+          <path d="M36 52 q2 -2 4 0" fill="none" stroke="#3D2A1F" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M50 52 q2 -2 4 0" fill="none" stroke="#3D2A1F" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M44 58 q1 1.5 2 0 M46 58 q-1 1.5 -2 0" fill="none" stroke="#3D2A1F" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- paw waving -->
+          <ellipse class="cat-paw" cx="70" cy="58" rx="6" ry="5" fill="#FFF6EA" stroke="#7A5439" stroke-width="1.6"/>
+        </svg>
+      </div>
+
+      <!-- progress dots -->
+      <div class="progress" role="progressbar" aria-label="recipe progress">
+        <span class="dot active" data-step="0"></span>
+        <span class="dot" data-step="1"></span>
+        <span class="dot" data-step="2"></span>
+        <span class="dot" data-step="3"></span>
+        <span class="dot" data-step="4"></span>
+      </div>
+    </section>
+
+    <!-- dialog + choices -->
+    <section class="dialog-stage">
+      <div class="dialog-card" id="dialog">
+        <div class="speaker">
+          <span class="speaker-name">あんパン <em>· anpan</em></span>
+          <span class="speaker-tag">★ baker</span>
+        </div>
+        <p class="dialog-text" id="dialog-text">
+          <!-- typed in -->
+        </p>
+        <span class="dialog-cursor" id="dialog-cursor">▼</span>
+      </div>
+
+      <div class="choices" id="choices">
+        <!-- injected -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="tiny-foot">
+    <span>baked by judy · prototype 0.1</span>
+  </footer>
+
+  <script src="baking.js" defer></script>
+</body>
+</html>
