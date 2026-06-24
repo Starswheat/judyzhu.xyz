@@ -19,13 +19,13 @@
 
   const SPEAKERS = {
     anpan: {
-      jp: 'ミルクパン',
-      en: 'milk bread',
-      tag: 'bakery mascot',
+      jp: '',
+      en: 'loaf-kun',
+      tag: 'host',
     },
     cat: {
-      jp: 'こねこシェフ',
-      en: 'kitten chefs',
+      jp: '',
+      en: 'cat pal',
       tag: 'recipe ready',
     },
   };
@@ -50,6 +50,14 @@
     { id: 'meat', icon: 'leaf', label: 'meat-free', hint: 'vegetarian-friendly fillings' },
     { id: 'caffeine', icon: 'moon', label: 'caffeine-free', hint: 'avoid matcha, cocoa, coffee' },
     { id: 'nut', icon: 'seed', label: 'nut-free', hint: 'avoid walnut, almond, cashew' },
+  ];
+
+  const TEXTURES = [
+    { value: 8, label: 'fuwafuwa', jp: 'ふわふわ', note: 'cloud-soft milk bread' },
+    { value: 32, label: 'soft', jp: 'やわらか', note: 'tender buns and choux' },
+    { value: 54, label: 'middle', jp: 'まんなか', note: 'buttery, balanced crumb' },
+    { value: 78, label: 'chewy', jp: 'もちもち', note: 'country loaf, slow proof' },
+    { value: 96, label: 'stodgy', jp: 'がっしり', note: 'sturdy baguette bite' },
   ];
 
   const BASES = {
@@ -277,17 +285,51 @@
 
   function setSpeaker(key) {
     const speaker = SPEAKERS[key];
-    $speakerName.innerHTML = `<span class="jp">${speaker.jp}</span>${speaker.en}`;
+    $speakerName.textContent = speaker.en;
     $speakerTag.textContent = speaker.tag;
+  }
+
+  function escapeHtml(value) {
+    return value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function renderDialogue(raw) {
+    let html = '';
+    let highlightOpen = false;
+    let glossOpen = false;
+
+    for (let i = 0; i < raw.length; i += 1) {
+      if (raw.slice(i, i + 2) === '**') {
+        html += highlightOpen ? '</span>' : '<span class="em">';
+        highlightOpen = !highlightOpen;
+        i += 1;
+        continue;
+      }
+      if (raw[i] === '/') {
+        html += glossOpen ? '</span>' : '<span class="jp-gloss">';
+        glossOpen = !glossOpen;
+        continue;
+      }
+      html += escapeHtml(raw[i]);
+    }
+
+    if (highlightOpen) html += '</span>';
+    if (glossOpen) html += '</span>';
+    $dialog.innerHTML = html;
   }
 
   function typeText(text, onDone) {
     if (typingTimer) clearTimeout(typingTimer);
-    $dialog.textContent = '';
+    renderDialogue('');
     $cursor.classList.remove('visible');
 
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      $dialog.textContent = text;
+      renderDialogue(text);
       $cursor.classList.add('visible');
       if (onDone) onDone();
       return;
@@ -295,7 +337,7 @@
 
     let i = 0;
     const tick = () => {
-      $dialog.textContent = text.slice(0, ++i);
+      renderDialogue(text.slice(0, ++i));
       if (i < text.length) {
         typingTimer = setTimeout(tick, /[、。,.!?]/.test(text[i - 1]) ? 95 : 18);
       } else {
@@ -313,8 +355,9 @@
     });
   }
 
-  function clearChoices() {
+  function clearChoices(layout = '') {
     $choices.innerHTML = '';
+    $choices.className = `choices${layout ? ` ${layout}` : ''}`;
   }
 
   function makeChoice({ icon, label, hint, selected, onClick, full }) {
@@ -361,7 +404,7 @@
     setSpeaker('anpan');
     Audio.setScene('intro');
     clearChoices();
-    typeText("やあ。 Welcome to the tiny bakery.\nChoose your craving, and we'll turn it into a bakery-ready daily special.");
+    typeText("Welcome to the **bakery of your imagination**. /いらっしゃい/\nTell me what you're craving, and I'll make a daily special.");
     $choices.appendChild(makeChoice({
       icon: 'bake',
       label: 'Create my daily special',
@@ -383,16 +426,22 @@
     setSpeaker('anpan');
     Audio.setScene('texture');
     clearChoices();
-    typeText("First, choose the crumb.\nふわふわ and cloud-soft, or deep and crusty?");
+    typeText("First — how should it **feel** in your hands?\nFrom **fuwafuwa** /ふわふわ/ to **stodgy** /がっしり/.");
 
     const wrap = document.createElement('div');
     wrap.className = 'slider-wrap';
     wrap.innerHTML = `
-      <div class="slider-labels">
-        <span>soft<span class="jp">ふわふわ</span></span>
-        <span>crusty<span class="jp">しっかり</span></span>
+      <div class="texture-steps">
+        ${TEXTURES.map((texture, index) => `
+          <button class="texture-step-btn${nearestTexture().value === texture.value ? ' selected' : ''}" type="button" data-texture="${texture.value}">
+            <span class="mini-bread" data-level="${index}"></span>
+            <span>
+              <span class="texture-step-label">${texture.label}</span>
+              <span class="texture-step-jp">${texture.jp}</span>
+            </span>
+          </button>
+        `).join('')}
       </div>
-      <input id="texture-slider" class="texture-slider" type="range" min="0" max="100" value="${state.texture}" />
       <div class="slider-readout">
         <span id="texture-name" class="big">${textureLabel(state.texture).name}</span>
         <span id="texture-note">${textureLabel(state.texture).note}</span>
@@ -400,19 +449,21 @@
     `;
     $choices.appendChild(wrap);
 
-    const slider = wrap.querySelector('#texture-slider');
     const name = wrap.querySelector('#texture-name');
     const note = wrap.querySelector('#texture-note');
-    slider.addEventListener('input', () => {
-      state.texture = Number(slider.value);
-      const label = textureLabel(state.texture);
-      name.textContent = label.name;
-      note.textContent = label.note;
-      Audio.tick();
+    wrap.querySelectorAll('.texture-step-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        state.texture = Number(button.dataset.texture);
+        wrap.querySelectorAll('.texture-step-btn').forEach((item) => item.classList.toggle('selected', item === button));
+        const label = textureLabel(state.texture);
+        name.textContent = label.name;
+        note.textContent = label.note;
+        Audio.tick();
+      });
     });
 
     $choices.appendChild(surpriseButton('Surprise me with texture', () => {
-      state.texture = randomInt(0, 100);
+      state.texture = pick(TEXTURES).value;
       stepFlavor();
     }));
 
@@ -427,8 +478,8 @@
   function stepFlavor() {
     setProgress(1);
     Audio.setScene('flavor');
-    clearChoices();
-    typeText("Now the flavor profile.\nPick one, blend a few, or take the house recommendation.");
+    clearChoices('grid-2');
+    typeText("Next — what **flavor world** are we in today? /味の世界/\nChoose one, or make a small blend.");
 
     FLAVORS.forEach((flavor) => {
       $choices.appendChild(makeChoice({
@@ -479,8 +530,8 @@
   function stepSize() {
     setProgress(2);
     Audio.setScene('size');
-    clearChoices();
-    typeText("How should it land in your hands?\nTiny, generous, or a long loaf for tearing.");
+    clearChoices('grid-3');
+    typeText("Hmm — and how big are we thinking? /大きさは？/\nA bite, a handful, or something to share.");
 
     SIZES.forEach((size) => {
       $choices.appendChild(makeChoice({
@@ -512,8 +563,8 @@
   function stepRestrictions() {
     setProgress(3);
     Audio.setScene('restrictions');
-    clearChoices();
-    typeText("Last check: any allergies or food restrictions?\nChoose what to avoid, and we'll keep the daily special on-brief.");
+    clearChoices('grid-2');
+    typeText("Last check — anything to avoid? /だいじょうぶ？/\nI'll keep the **daily special** on-brief.");
 
     RESTRICTIONS.forEach((restriction) => {
       $choices.appendChild(makeChoice({
@@ -568,7 +619,7 @@
     Audio.setScene('reveal');
     clearChoices();
     const recipe = generateRecipe();
-    typeText(wasSurprise ? "The bakery curated your daily special.\nFresh from the counter and ready to bake." : "Your daily special is ready.\nA bakery-counter recipe shaped around your choices.");
+    typeText(wasSurprise ? "Here we go — pulled this from the **back shelf**.\nFresh out of the oven for you." : "Here we go — your **daily special** is ready.\nShaped around exactly what you chose.");
     Audio.fanfare();
 
     const card = document.createElement('article');
@@ -885,13 +936,11 @@
   }
 
   function textureLabel(value) {
-    if (value <= 15) return { name: 'cloud-soft', note: 'shokupan, choux, steam-soft crumb' };
-    if (value <= 30) return { name: 'fuwafuwa', note: 'milk bread, tangzhong, tender buns' };
-    if (value <= 45) return { name: 'pillowy', note: 'brioche, melon pan, filled buns' };
-    if (value <= 60) return { name: 'laminated', note: 'croissant layers and butter' };
-    if (value <= 72) return { name: 'tender crumb', note: 'focaccia, pan loaf, olive oil' };
-    if (value <= 85) return { name: 'rustic', note: 'country loaf and long ferment' };
-    return { name: 'crusty', note: 'baguette, lean dough, firm bite' };
+    if (value <= 15) return { name: 'fuwafuwa', note: 'cloud-soft shokupan and steam-soft crumb' };
+    if (value <= 38) return { name: 'soft', note: 'tangzhong, choux, tender buns' };
+    if (value <= 64) return { name: 'middle', note: 'buttery layers and balanced bite' };
+    if (value <= 86) return { name: 'chewy', note: 'country loaf, focaccia, slow proof' };
+    return { name: 'stodgy', note: 'baguette, lean dough, sturdy crust' };
   }
 
   function bucketFor(value) {
@@ -940,6 +989,12 @@
 
   function pick(list) {
     return list[Math.floor(Math.random() * list.length)];
+  }
+
+  function nearestTexture() {
+    return TEXTURES.reduce((nearest, texture) => (
+      Math.abs(texture.value - state.texture) < Math.abs(nearest.value - state.texture) ? texture : nearest
+    ), TEXTURES[0]);
   }
 
   function shuffled(list) {
