@@ -1013,6 +1013,7 @@
     let ctx = null;
     let master = null;
     let musicBus = null;
+    let stringBus = null;
     let sfxBus = null;
     let musicOn = false;
     let sfxOn = true;
@@ -1072,6 +1073,39 @@
       reveal: [523.25, 659.25, 783.99, 1046.5],
     };
 
+    const stringChords = {
+      intro: [
+        [261.63, 329.63, 392],
+        [293.66, 349.23, 440],
+        [329.63, 392, 493.88],
+      ],
+      texture: [
+        [261.63, 329.63, 392],
+        [246.94, 293.66, 392],
+        [220, 329.63, 440],
+      ],
+      flavor: [
+        [293.66, 369.99, 440],
+        [329.63, 415.3, 493.88],
+        [261.63, 329.63, 440],
+      ],
+      size: [
+        [220, 293.66, 369.99],
+        [246.94, 329.63, 392],
+        [293.66, 369.99, 440],
+      ],
+      restrictions: [
+        [233.08, 349.23, 466.16],
+        [261.63, 349.23, 523.25],
+        [196, 293.66, 392],
+      ],
+      reveal: [
+        [261.63, 329.63, 392, 523.25],
+        [293.66, 369.99, 440, 587.33],
+        [329.63, 392, 493.88, 659.25],
+      ],
+    };
+
     function init() {
       if (ctx) return;
       const Ctor = window.AudioContext || window.webkitAudioContext;
@@ -1082,6 +1116,9 @@
       musicBus = ctx.createGain();
       musicBus.gain.value = 0;
       musicBus.connect(master);
+      stringBus = ctx.createGain();
+      stringBus.gain.value = 0.62;
+      stringBus.connect(musicBus);
       sfxBus = ctx.createGain();
       sfxBus.gain.value = 1;
       sfxBus.connect(master);
@@ -1112,6 +1149,48 @@
       osc.stop(now + duration + 0.02);
     }
 
+    function stringPad(notes, duration = 1.6, volume = 0.008) {
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const filter = ctx.createBiquadFilter();
+      const chordGain = ctx.createGain();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1160, now);
+      filter.Q.value = 0.7;
+      chordGain.gain.setValueAtTime(0, now);
+      chordGain.gain.linearRampToValueAtTime(volume, now + 0.22);
+      chordGain.gain.setTargetAtTime(0.0001, now + duration * 0.72, 0.22);
+      chordGain.connect(filter).connect(stringBus);
+
+      notes.forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        osc.type = index % 2 ? 'triangle' : 'sawtooth';
+        osc.frequency.value = freq;
+        osc.detune.value = index % 2 ? 5 : -4;
+        osc.connect(chordGain);
+        osc.start(now + index * 0.018);
+        osc.stop(now + duration + 0.16);
+      });
+    }
+
+    function stringPluck(freq, volume = 0.012) {
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const filter = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      filter.type = 'bandpass';
+      filter.frequency.value = freq * 2;
+      filter.Q.value = 3.2;
+      gain.gain.setValueAtTime(volume, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.42);
+      osc.connect(filter).connect(gain).connect(stringBus);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    }
+
     function effect(freq, duration = 0.08, volume = 0.04, type = 'sine') {
       if (!sfxOn) return;
       ready();
@@ -1123,7 +1202,13 @@
       if (!musicOn || !ctx) return;
       const token = musicRun;
       const phrase = phrases[scene] || phrases.intro;
+      const chords = stringChords[scene] || stringChords.intro;
+      const chord = chords[phraseIndex % chords.length];
       let offset = immediate ? 0.04 : 0.18;
+
+      setTimeout(() => {
+        if (musicOn && token === musicRun) stringPad(chord, scene === 'reveal' ? 2.25 : 1.55, scene === 'reveal' ? 0.01 : 0.007);
+      }, Math.max(0, offset - 0.02) * 1000);
 
       phrase.forEach(([freq, duration, gap, type, volume]) => {
         const delay = offset * 1000;
@@ -1135,6 +1220,11 @@
             tone(freq, duration, volume, type, musicBus);
           }
         }, delay);
+        if (phraseIndex % 2 === 0 && !Array.isArray(freq) && gap > 0.22) {
+          setTimeout(() => {
+            if (musicOn && token === musicRun) stringPluck(freq * 2, 0.006);
+          }, (offset + gap * 0.48) * 1000);
+        }
         offset += gap;
       });
 
