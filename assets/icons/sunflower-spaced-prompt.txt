@@ -1,0 +1,8 @@
+Generated with the built-in image generator. Transparent background enabled.
+
+Use case: precise-object-edit.
+Image 1 is the approved sunflower icon to edit. Image 2 is ONLY a reference for clear-space proportions.
+Change only the sunflower's scale and placement within the canvas. Preserve the exact existing sunflower artwork from image 1: identical petals, silhouette, gold-orange-crimson gradients, burgundy center, and painterly texture. Do not redesign or redraw the flower.
+Create a square transparent canvas. Place the sunflower precisely centered with its visible flower silhouette occupying approximately 48% of the full canvas width and height, leaving approximately 26% completely transparent padding on EACH of the four sides. This is deliberately generous clear space, matching the spacing principle shown by the central mark in image 2. Preserve the complete square canvas and the large empty margins; do not trim or zoom in to the flower.
+The only visible object is the same sunflower. The background and all margins must have true alpha transparency. Do not copy the reference logo, white background, circles, grid, borders, or guide lines. No additional marks, text, outlines, shadows, or glow.
+
