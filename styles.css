@@ -194,7 +194,6 @@ main,
 }
 
 .hero-art picture,
-.now-art picture,
 .painting picture {
   display: block;
   overflow: hidden;
@@ -203,14 +202,12 @@ main,
   box-shadow: var(--shadow-border);
 }
 
-.hero-art img,
-.now-art img {
+.hero-art img {
   width: 100%;
   height: auto;
 }
 
 .hero-art figcaption,
-.now-art figcaption,
 .painting figcaption {
   margin-top: 0.625rem;
   color: var(--text-secondary);
@@ -266,10 +263,6 @@ main,
 .now-item p {
   margin: 0;
   color: var(--text-secondary);
-}
-
-.now-art {
-  margin: 1.5rem 0 0;
 }
 
 .book-list {
