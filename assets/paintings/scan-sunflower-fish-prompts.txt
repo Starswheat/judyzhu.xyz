@@ -1,0 +1,14 @@
+Method: built-in image_gen image editing, 2026-11-06.
+Original source photos are retained. These are AI-assisted color-scan style versions, not exact geometric pixel transforms.
+
+Sunflower on blue
+Source: sunflower-blue-1600.webp
+Output: sunflower-blue-scan.png (1122 x 1402)
+Prompt:
+Use case: precise-object-edit. Asset type: portfolio artwork color scan. Input image: EDIT TARGET, the original photograph of a sunflower painting on an easel. Extract ONLY the exact painted canvas (yellow sunflower and green leaves on blue), crop precisely at its four outer painted edges and rectify perspective so the artwork is a front-facing flat rectangular portrait image, approximately 4:5 width:height. Canvas must fill every pixel of the output edge to edge, no borders or margins. Make it look like an evenly lit, high quality color scan of this SAME physical painting with neutral white balance and faithful colors. Preserve exactly the original painted composition, petal count and shapes, flower center, leaf shapes and placement, blue brushwork, handmade imperfections and visible paint/canvas texture. Only correct photography, framing, perspective and uneven lighting; DO NOT redraw, beautify, replace, simplify, or reinterpret any painted marks. Remove all easel, room, wall and surrounding objects completely. No added text, signature, frame, shadow, watermark or backdrop. Output a detailed portrait color scan.
+
+Betta fish
+Source: betta-fish-1600.webp
+Output: betta-fish-scan.png (1402 x 1122)
+Prompt:
+Use case: precise-object-edit. Asset type: portfolio artwork color scan. Input image: EDIT TARGET, original photograph of a betta fish painting on an outdoor easel. Extract ONLY the exact black rectangular painted canvas, including its original black painted ground around the fish. Crop precisely at its four canvas edges and rectify perspective to a flat front-facing landscape rectangle, approximately 5:4 width:height. Canvas fills every pixel of output edge to edge, with no frame or extra margins. Create an evenly lit high quality color scan of this SAME physical oil painting, gently correcting outdoor cast and underexposure with neutral white balance and faithful luminous pastel yellows, pinks, lilacs, blues. Preserve exact composition, black ground, fish face/eye/body/fin shapes, every painted fin contour, handmade imperfections and visible brushstrokes/canvas texture. The original fish tail runs all the way to the right edge; retain that crop exactly. Only correct photography/framing/perspective/lighting, DO NOT redraw, beautify, simplify, add detail or reinterpret the painting. Remove garden, easel and everything outside the canvas. No added text, signature, shadows, border, watermark or backdrop. Output a detailed landscape color scan.

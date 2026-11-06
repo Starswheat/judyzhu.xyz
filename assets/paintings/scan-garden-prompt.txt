@@ -1,0 +1,10 @@
+Built-in image_gen edit. Original: garden-by-water-1600.webp.
+AI-assisted scan-style reproduction; the original photograph is retained.
+
+Use case: precise-object-edit.
+Asset type: faithful digitized oil painting for the artist's personal portfolio.
+Input image: edit target, a photograph of the actual Garden by water canvas.
+Primary request: extract ONLY the painted rectangular canvas as a faithful high-resolution color scan. Identify the four canvas corners, crop exactly to the painting boundaries, and correct the tilted trapezoidal perspective to a flat front-facing rectangle with its natural approximately 6:5 landscape aspect ratio. The visible canvas corners in the 1200x1600 source are approximately (153,415), (998,469), (938,1185), (111,1077).
+Lighting: neutral, even archival scan illumination; gently correct camera color cast while keeping original painted colors.
+Preserve exactly the existing red-roofed houses on the left, all flowers and greenery, blue water and reflections, sky and right island, every original brushstroke, impasto texture, handmade imperfections and composition. This is a reproduction of an existing artwork, not a new interpretation or repainting. Nothing is to be invented or beautified.
+Output only the rectangular painting, edge to edge, no margin, no frame, no canvas side, no surrounding chair, cushion, background, bag or objects, no new text or watermark.
