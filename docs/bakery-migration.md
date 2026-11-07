@@ -2,7 +2,13 @@
 
 ## Current status (2026-11-06)
 
-- `https://judyzhu.xyz/bakery.html` returns HTTP 200 with a valid HTTPS connection.
+The bakery migration is complete. No user action remains for the bakery.
+
+- The redirect for `https://judyzhu.xyz/bakery.html` is published and verified in
+  a live browser. The bare old URL lands at `https://bakery.judyzhu.xyz/`.
+  Navigating to `https://judyzhu.xyz/bakery.html?from=legacy#recipe` lands at
+  `https://bakery.judyzhu.xyz/?from=legacy#recipe`, preserving both the query and
+  fragment. The bakery UI works, with no browser errors or warnings.
 - The main site uses GitHub Pages, publishing `main` / repository root from
   `Starswheat/judyzhu.xyz`. Its custom domain is `judyzhu.xyz`. The remote main
   site still serves the older site; the local React redesign has not been
@@ -13,8 +19,13 @@
 - The main site's root `CNAME` remains `judyzhu.xyz`. The bakery has its own
   repository and custom domain; the migration does not replace the main domain.
 - The standalone export and guarded redirect are implemented. The new host has
-  passed verification, and the redirect is enabled in the source and prepared
-  publishing files. The live old URL still awaits publication of that file.
+  passed verification, and the redirect is enabled in the source, prepared
+  publishing files, and remote main-site repository. Publication commit
+  [`52a43bac8371f60c207df2c0d571a4b7b65e2222`](https://github.com/Starswheat/judyzhu.xyz/commit/52a43bac8371f60c207df2c0d571a4b7b65e2222)
+  changes only `bakery.html`; the GitHub API confirmed that its bytes exactly
+  match the activated local source. GitHub Pages run
+  [`42322736248`](https://github.com/Starswheat/judyzhu.xyz/actions/runs/42322736248)
+  succeeded for that commit, followed by successful live old-URL browser checks.
 - The exported site is published in the public repository
   [`Starswheat/bakery.judyzhu.xyz`](https://github.com/Starswheat/bakery.judyzhu.xyz),
   with application content from commit
@@ -29,8 +40,7 @@
   check generated a surprise recipe with no errors or warnings.
 - **Enforce HTTPS** is saved. HTTP-to-HTTPS redirection was observed at about
   19:39 EST, and the full live readiness check passed before the legacy redirect
-  was activated locally. Final publication to the main site is pending because
-  the Mac locked before the authenticated browser upload could be completed.
+  was activated locally and published to the main-site repository.
 - Validation completed: four migration tests passed; all 11 exported files were
   served locally with matching bytes; the standalone browser preview completed
   the guided recipe flow and surprise recipe, rejected an empty flavor choice,
@@ -72,16 +82,18 @@ The target follows the verified repository owner and GitHub's documented
 subdomain setup. Preserve existing apex, `www`, mail, and verification records.
 
 The TLS certificate is active and **Enforce HTTPS** is enabled and confirmed in
-a fresh Pages settings tab. The remaining hosting check is observing the public
-HTTP root redirect to HTTPS after the older edge-cached response expires. Rerun
-the verification command below; do not bypass its HTTP-to-HTTPS check or activate
-the legacy redirect while that check still fails.
+a fresh Pages settings tab. The public HTTP root now redirects to HTTPS, and the
+complete readiness check passes. Rerun the verification command below before
+future cutovers; do not bypass its HTTP-to-HTTPS check.
 
 Sources: [GitHub custom subdomain setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain),
 [GitHub HTTPS](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https),
 [one custom domain per Pages CNAME file](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/troubleshooting-custom-domains-and-github-pages#cname-errors).
 
 ## Verify, then activate the old URL redirect
+
+These steps have been completed for this migration. Keep them for future
+updates or reactivation after rollback.
 
 ```sh
 python3 scripts/bakery_site.py verify
@@ -118,10 +130,11 @@ Verify both `https://judyzhu.xyz/bakery.html` and
 ### Homepage and deployment coordination
 
 The homepage chat owns the React redesign. Its bakery project link is currently
-`href="/bakery.html"` in `src/App.tsx`. After the new host passes verification,
-coordinate changing that destination to `https://bakery.judyzhu.xyz/`. Keep the
-main-site mascot asset because the homepage still uses it. Existing links keep
-working through the legacy page once its redirect is published.
+`href="/bakery.html"` in `src/App.tsx` and works through the verified legacy
+redirect. The homepage chat may optionally change that destination directly to
+`https://bakery.judyzhu.xyz/` in a later update; this is not required to complete
+the bakery migration. Keep the main-site mascot asset because the homepage
+still uses it.
 
 Distinguish the local source, generated output, and live deployment:
 
@@ -130,20 +143,25 @@ Distinguish the local source, generated output, and live deployment:
   `dist/portfolio`. Packaging copies root `bakery.html`, `bakery.css`, `bakery.js`,
   the mascot, four icons, and the unchanged main-domain `CNAME` into that output.
   Rebuild after activating or disabling the redirect so the output includes it.
+- Source commit `214672a` adds the standalone export and guarded cutover tools;
+  `5a0ce55` activates the redirect after live HTTPS verification. These changes
+  preserve the source for later exports and rollback.
 - A full portfolio build requires the sibling wishlist's built `dist/client`,
   or `WISHLIST_BUILD_DIR` pointing to that build. See `design/implementation.md`.
 - The prepared publishing checkout is
   `/Users/judyfruitee/Documents/GitHub/judyzhu.xyz-published`, branch `codex/pages`,
-  initially at commit `d98a348`. It contains compiled React output. Its bakery
-  page must be refreshed from the activated source or rebuilt `dist/portfolio`
-  before that deployment is published.
+  initially at commit `d98a348`. It contains compiled React output, and commit
+  `317fd2e` already includes the activated bakery redirect. Retain that change
+  when publishing the React redesign or refreshing its build.
 - The remote main site still uses the older `main` / repository-root deployment;
-  the parent chat's redesign deployment remains pending. Confirm the active
-  Pages source before publishing the redirect. If the older deployment is still
-  active, update its `bakery.html` without pushing the unbuilt React source root.
-  If deployment has switched to the prepared React output, update the publishing
-  checkout instead. Also retain the change in this source repository so a later
-  build does not overwrite it.
+  the parent chat's redesign deployment remains pending. Redirect publication
+  commit `52a43bac8371f60c207df2c0d571a4b7b65e2222` updates only its `bakery.html`,
+  preserving the older homepage and main-domain `CNAME`. Live old-URL browser
+  verification passed for both the bare URL and a URL with query and fragment.
+  For future updates, confirm the active Pages
+  source: update the older `main` deployment while it remains active, or the
+  prepared publishing checkout after deployment switches to compiled React
+  output. Retain changes in this source repository so later builds preserve them.
 
 The source-root React `index.html` loads `/src/main.tsx`; it must be built before
 publication. Neither `npm run build` nor the bakery activation command deploys
