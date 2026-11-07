@@ -12,24 +12,31 @@
   Cloudflare resolver `1.1.1.1`, and Google resolver `8.8.8.8` confirm the record.
 - The main site's root `CNAME` remains `judyzhu.xyz`. The bakery has its own
   repository and custom domain; the migration does not replace the main domain.
-- The standalone export and guarded redirect are implemented. The old bakery URL
-  remains a functioning page until the new site passes verification.
+- The standalone export and guarded redirect are implemented. The new host has
+  passed verification, and the redirect is enabled in the source and prepared
+  publishing files. The live old URL still awaits publication of that file.
 - The exported site is published in the public repository
   [`Starswheat/bakery.judyzhu.xyz`](https://github.com/Starswheat/bakery.judyzhu.xyz),
-  commit `8d9da48569529f89c562667a5e198ddc7c63e77b`. The local publishing checkout is
+  with application content from commit
+  `8d9da48569529f89c562667a5e198ddc7c63e77b`. Its current `main` is `1446b95`, after
+  removing and readding the custom-domain `CNAME` to restart certificate
+  provisioning; the application content is unchanged. The local publishing checkout is
   `/Users/judyfruitee/Documents/GitHub/bakery.judyzhu.xyz`.
 - GitHub Pages is enabled for the bakery repository using `main` / repository
   root, with custom domain `bakery.judyzhu.xyz`.
-- The new host serves the exact exported page and local assets over HTTP.
-  GitHub has requested its TLS certificate, but issuance is still pending.
-  HTTPS has **not** been verified, and the old URL redirect is **not** active.
+- TLS is active. The HTTPS root and every local asset have been verified against
+  the exact exported bytes using a trusted certificate. A live HTTPS browser
+  check generated a surprise recipe with no errors or warnings.
+- **Enforce HTTPS** is saved. HTTP-to-HTTPS redirection was observed at about
+  19:39 EST, and the full live readiness check passed before the legacy redirect
+  was activated locally. Final publication to the main site is pending because
+  the Mac locked before the authenticated browser upload could be completed.
 - Validation completed: four migration tests passed; all 11 exported files were
   served locally with matching bytes; the standalone browser preview completed
   the guided recipe flow and surprise recipe, rejected an empty flavor choice,
   returned to the start screen, and changed both audio-toggle states. Browser
-  error/warning logs were empty. Public HTTP content and assets match the export;
-  the full readiness check must still pass after certificate issuance and HTTPS
-  enforcement.
+  error/warning logs were empty. Public HTTPS content and assets match the
+  export, and the complete live readiness check has passed.
 
 ## Build the standalone site
 
@@ -64,11 +71,11 @@ The following record is already live in Porkbun; do not add a duplicate:
 The target follows the verified repository owner and GitHub's documented
 subdomain setup. Preserve existing apex, `www`, mail, and verification records.
 
-The remaining hosting step is certificate issuance. Wait for GitHub's
-certificate check to pass, enable **Enforce HTTPS** in the bakery repository,
-then run the verification command below. GitHub says certificate/HTTPS
-availability can take up to 24 hours after DNS configuration. HTTP success
-alone does not authorize redirect activation.
+The TLS certificate is active and **Enforce HTTPS** is enabled and confirmed in
+a fresh Pages settings tab. The remaining hosting check is observing the public
+HTTP root redirect to HTTPS after the older edge-cached response expires. Rerun
+the verification command below; do not bypass its HTTP-to-HTTPS check or activate
+the legacy redirect while that check still fails.
 
 Sources: [GitHub custom subdomain setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain),
 [GitHub HTTPS](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https),

@@ -18,7 +18,10 @@ class MigrationTest(unittest.TestCase):
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(migration.ROOT / name, target)
-        self.original = (self.root / "bakery.html").read_bytes()
+        # Exercise cutover from the legacy page even after the real site moves.
+        page = self.root / "bakery.html"
+        page.write_text(migration.REDIRECT_BLOCK.sub("", page.read_text()))
+        self.original = page.read_bytes()
 
     def published(self, url):
         files = migration.site_files(self.root)
