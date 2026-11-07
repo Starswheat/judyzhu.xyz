@@ -16,7 +16,7 @@ function Header() {
 }
 function Work() {
   const [showCode,setShowCode] = useState(false);
-  const wishlistHref = import.meta.env.DEV ? 'http://127.0.0.1:4174/' : '/wishlist/';
+  const wishlistHref = import.meta.env.DEV ? 'http://127.0.0.1:4174/' : 'https://wishlist.judyzhu.xyz/';
   return <div className="page-enter"><div className="section-heading"><div><h2>small things, made with care.</h2><p>little projects for the things i love.</p></div><GlassButton aria-pressed={showCode} onClick={() => setShowCode(!showCode)}><Code size={17} />{showCode ? 'hide source' : 'view source'}</GlassButton></div>
     <div className="project-grid">
       <article className="project"><a className="project-image bakery-image" href="/bakery.html" aria-label="play judy's bakery"><img src={assets.bakery} alt="judy's bakery mascot" /><span className="project-pill">judy’s bakery<ArrowUpRight size={18} /></span></a><div className="project-caption"><p>a tiny baking game. a recipe for every mood.</p><span>play</span></div>{showCode && <a className="source-link" href={links.bakerySource} {...outside}><GithubLogo size={17} />explore the code<ArrowUpRight size={14} /></a>}</article>
