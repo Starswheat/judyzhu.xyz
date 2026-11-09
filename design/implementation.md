@@ -1,22 +1,20 @@
 # judy xīngyǐng | implementation
 
-the current direction is deliberately simple: a white page, figtree, lowercase copy, useful navigation, and real paintings and project content. michelle liu's [about page](https://www.liumichelle.com/about) and [design system](https://www.liumichelle.com/design-system) are the primary layout references. the earlier generated gallery concepts are superseded by this direction.
-
-liquid glass is an interaction on actual buttons. a small pointer tilt, a press response, a translucent surface, and a clear focus state give the material a purpose. the layout works without animation and respects reduced motion.
+The current direction is a near-black page, chalk text, silver secondary text and one gold mark per screen. Copy is in sentence case, with no taglines, helper text or secondary labels. The rules are in [AGENTS.md](../AGENTS.md) and on `/design-system`. The earlier white, lowercase, liquid glass direction is superseded.
 
 ## pages
 
-* `/`: a portfolio of hobby projects, including the bakery and wishlist, with source links and a compact professional introduction.
-* `/studio`: the existing paintings, full image viewing, and a photography tab. photography is intentionally empty until judy adds her own collection.
-* `/about`: the personal introduction, experience, offscreen interests, and books already present on the earlier site.
-* `/design-system`: interactive color tokens, type, spacing, controls, glass, and motion examples shared with the site.
+* `/`: the projects, each with a drawn thumbnail, a title and a source link.
+* `/paintings`: the paintings, with a full image viewer.
+* `/about`: a short biography, experience and reading.
+* `/design-system`: the colour, type and space tokens, read from the stylesheet, and the design rules.
 * `/wishlist/`: the independent wishlist application, copied from its sibling repository's built client.
 
-the work, photography, and paintings aliases have direct static entry points. the existing bakery, baking, and invitation routes are preserved.
+`/work`, `/studio` and `/photography` are aliases with direct static entry points. The existing bakery, baking and invitation routes are preserved.
 
 ## development
 
-the site uses react, typescript, vite, figtree, and phosphor icons. a standalone three.js scene is unnecessary for the selected interaction.
+The site uses React, TypeScript, Vite and Phosphor icons, with the system font.
 
 ```sh
 npm install
@@ -43,11 +41,10 @@ the wishlist must be built with relative asset paths so it can run both independ
 
 ## content and maintenance
 
-* portfolio links, experience, painting metadata, and asset imports live in `src/content.ts`.
-* site layout and routes live in `src/App.tsx`.
-* shared tokens and responsive layout live in `src/styles.css`.
-* the reusable glass interaction lives in `src/components/GlassButton.tsx`.
-* design system specimens live in `src/DesignSystem.tsx` and `src/design-system.css`.
+* every word, link and asset import lives in `src/content.ts`.
+* the shell and routes live in `src/App.tsx`, with one file per screen in `src/pages/`.
+* tokens and all styles live in `src/styles.css`.
+* the project thumbnails live in `src/components/ProjectPlates.tsx`.
 * wishlist content and behavior belong to its independent repository. rebuild that project before packaging a new portfolio release.
 
 the linkedin experience is based on the screenshot judy supplied. the site does not add unverified metrics or project outcomes. the bakery subdomain cutover remains separate from this redesign; the existing bakery url remains in use until the new domain is verified.

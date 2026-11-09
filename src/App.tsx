@@ -1,51 +1,60 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
-import { ArrowUpRight, ArrowLeft, ArrowRight, Camera, Code, Gift, GithubLogo, InstagramLogo, LinkedinLogo, Plus, X } from '@phosphor-icons/react';
-import { GlassButton } from './components/GlassButton';
-import { assets, experiences, links, paintings } from './content';
-import DesignSystem from './DesignSystem';
-const outside = { target:'_blank', rel:'noreferrer' };
-const normalizedPath = (path:string) => path.replace(/\/+$/, '') || '/';
+import { useEffect } from 'react';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import { elsewhere, site } from './content';
+import About from './pages/About';
+import DesignSystem from './pages/DesignSystem';
+import Paintings from './pages/Paintings';
+import Work from './pages/Work';
 
-function Header() {
-  const system = normalizedPath(useLocation().pathname) === '/design-system';
-  return <header className={`site-header ${system ? 'system-header' : ''}`}>
-    <div className="top-line"><Link to="/" className="site-mark" aria-label="judy xīngyǐng, homepage"><img src={assets.mark} alt="" width="36" height="36" /></Link><Link className="quiet-link" to={system ? '/' : '/design-system'}>{system ? 'back to judy' : 'the design system'}<Code size={16} /></Link></div>
-    {!system && <><div className="intro"><h1>judy <span>xīngyǐng</span></h1><p>data, art, and a little curiosity.<br /><span className="muted">currently at <a href={links.linkedin} {...outside}>tive</a>, based in boston.</span></p></div><nav className="main-nav" aria-label="main navigation"><NavLink to="/" end>work</NavLink><NavLink to="/studio">studio</NavLink><NavLink to="/about">about</NavLink></nav></>}
-  </header>;
+// Every path the site answers to. Older paths stay as aliases so no link breaks.
+// The build writes a static entry for each one in scripts/prepare-portfolio.mjs.
+const routes = [
+  { path: '/', screen: 'Work', element: <Work /> },
+  { path: '/work', screen: 'Work', element: <Work /> },
+  { path: '/paintings', screen: 'Paintings', element: <Paintings /> },
+  { path: '/studio', screen: 'Paintings', element: <Paintings /> },
+  { path: '/photography', screen: 'Paintings', element: <Paintings /> },
+  { path: '/about', screen: 'About', element: <About /> },
+  { path: '/design-system', screen: 'Design system', element: <DesignSystem /> },
+];
+const nav = [['Work', '/'], ['Paintings', '/paintings'], ['About', '/about']] as const;
+
+function NotFound() {
+  return <><h1>Page not found</h1><p><Link className="link" to="/">Home</Link></p></>;
 }
-function Work() {
-  const [showCode,setShowCode] = useState(false);
-  const wishlistHref = import.meta.env.DEV ? 'http://127.0.0.1:4174/' : 'https://wishlist.judyzhu.xyz/';
-  return <div className="page-enter"><div className="section-heading"><div><h2>small things, made with care.</h2><p>little projects for the things i love.</p></div><GlassButton aria-pressed={showCode} onClick={() => setShowCode(!showCode)}><Code size={17} />{showCode ? 'hide source' : 'view source'}</GlassButton></div>
-    <div className="project-grid">
-      <article className="project"><a className="project-image bakery-image" href="/bakery.html" aria-label="play judy's bakery"><img src={assets.bakery} alt="judy's bakery mascot" /><span className="project-pill">judy’s bakery<ArrowUpRight size={18} /></span></a><div className="project-caption"><p>a tiny baking game. a recipe for every mood.</p><span>play</span></div>{showCode && <a className="source-link" href={links.bakerySource} {...outside}><GithubLogo size={17} />explore the code<ArrowUpRight size={14} /></a>}</article>
-      <article className="project"><a className="project-image wishlist-image" href={wishlistHref} aria-label="open judy's wishlist"><div className="wishlist-preview"><Gift size={62} weight="light" /><span>a few things<br />i have my eye on.</span></div><span className="project-pill">judy’s wishlist<ArrowUpRight size={18} /></span></a><div className="project-caption"><p>useful things, lovely things, and little wishes.</p><span>collect</span></div>{showCode && <a className="source-link" href={links.wishlistSource} {...outside}><GithubLogo size={17} />explore the code<ArrowUpRight size={14} /></a>}</article>
+
+export default function App() {
+  const location = useLocation();
+  const path = location.pathname.replace(/\/+$/, '') || '/';
+  const screen = routes.find(route => route.path === path)?.screen ?? 'Page not found';
+
+  useEffect(() => {
+    document.title = screen === 'Work' ? site.name : `${screen} · ${site.name}`;
+    if (location.hash) requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+    else window.scrollTo(0, 0);
+  }, [location, screen]);
+
+  return <>
+    <a className="skip-link" href="#main">Skip to content</a>
+    <div className="shell">
+      <header className="header">
+        <Link className="header-name" to="/">{site.name}</Link>
+        <nav className="nav" aria-label="Main">
+          {nav.map(([label, to]) => <Link key={to} to={to} aria-current={screen === label ? 'page' : undefined}>{label}</Link>)}
+        </nav>
+      </header>
+      <main id="main" tabIndex={-1}>
+        <Routes>
+          {routes.map(route => <Route key={route.path} path={route.path} element={route.element} />)}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <footer className="footer">
+        <nav aria-label="Elsewhere">
+          {elsewhere.map(link => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}
+          <Link to="/design-system">Design system</Link>
+        </nav>
+      </footer>
     </div>
-    <div className="website-project"><div><Code size={21} /><div><h3>this little corner of the internet</h3><p>an evolving home for my work and everything around it.</p></div></div><Link to="/design-system">behind the scenes<ArrowUpRight size={17} /></Link></div>
-    <section className="experience-preview"><div className="section-heading"><h2>somewhere along the way</h2><Link className="text-link" to="/about#experience">more about me<ArrowUpRight size={17} /></Link></div><div className="experience-tags">{experiences.map(item => <span key={item.company}>{item.company}</span>)}</div></section>
-  </div>;
-}
-function ArtDialog({ selected,onClose,onChange }:{ selected:number; onClose:()=>void; onChange:(index:number)=>void }) {
-  const dialog = useRef<HTMLDialogElement>(null), painting = paintings[selected];
-  useEffect(() => { dialog.current?.showModal(); const overflow=document.body.style.overflow; document.body.style.overflow='hidden'; return () => {document.body.style.overflow=overflow;}; },[]);
-  return <dialog ref={dialog} className="art-dialog" aria-label={painting.title} onCancel={onClose} onClick={event => {if(event.target===event.currentTarget)onClose();}} onKeyDown={event => {if(event.key==='ArrowRight')onChange((selected+1)%paintings.length);if(event.key==='ArrowLeft')onChange((selected+paintings.length-1)%paintings.length);}}><div className="art-dialog-inner"><div className="art-dialog-top"><span>{selected+1} of {paintings.length}</span><GlassButton onClick={onClose} aria-label="close painting"><X size={20} /></GlassButton></div><img src={painting.image} alt={painting.alt} /><div className="art-dialog-bottom"><div><h2>{painting.title}</h2><p>oil on canvas</p></div><div className="button-row"><GlassButton onClick={()=>onChange((selected+paintings.length-1)%paintings.length)} aria-label="previous painting"><ArrowLeft size={20} /></GlassButton><GlassButton onClick={()=>onChange((selected+1)%paintings.length)} aria-label="next painting"><ArrowRight size={20} /></GlassButton></div></div></div></dialog>;
-}
-function Studio({initial='paintings'}:{initial?:'paintings'|'photography'}) {
-  const [tab,setTab]=useState(initial),[selected,setSelected]=useState<number|null>(null);
-  useEffect(()=>setTab(initial),[initial]);
-  return <div className="page-enter"><div className="section-heading"><div><h2>away from the screen.</h2><p>things i paint. moments i keep.</p></div><div className="segmented" aria-label="studio collections">{(['paintings','photography'] as const).map(value=><button key={value} aria-pressed={value===tab} onClick={()=>setTab(value)}>{value}</button>)}</div></div>{tab==='paintings'?<div className="painting-grid">{paintings.map((painting,index)=><button className={`painting painting-${index}`} key={painting.title} onClick={()=>setSelected(index)}><span className="painting-image"><img src={painting.image} alt={painting.alt} loading={index>1?'lazy':'eager'} /><span className="image-expand"><Plus size={18} /></span></span><span className="painting-caption">{painting.title}<span>oil on canvas</span></span></button>)}</div>:<div className="photo-empty"><Camera size={40} weight="light" /><h3>a collection in the making.</h3><p>light, places, and the moments in between.<br />for now, a few of them live on instagram.</p><a className="text-link" href={links.instagram} {...outside}>take a look<ArrowUpRight size={17} /></a></div>}{selected!==null&&<ArtDialog selected={selected} onClose={()=>setSelected(null)} onChange={setSelected} />}</div>;
-}
-function Experience() {
-  return <section id="experience" className="about-section"><h2>experience</h2><div className="experience-list">{experiences.map(item=><details key={item.company}><summary><div><h3>{item.company}</h3><p>{item.role}</p></div><span className="experience-date">{item.date}</span><Plus className="expand-icon" size={18} /></summary><div className="experience-detail"><span>{item.note}</span><p>{item.detail}</p></div></details>)}</div><a className="text-link" href={links.linkedin} {...outside}>more on linkedin<ArrowUpRight size={16} /></a></section>;
-}
-function About() {
-  return <div className="about-layout page-enter"><nav className="section-index" aria-label="about sections"><a href="#hello">hello</a><a href="#experience">experience</a><a href="#offscreen">offscreen</a><a href="#shelf">on my shelf</a></nav><div className="about-content"><section id="hello" className="about-intro"><figure><img src={assets.garden} alt="judy's oil painting garden by water" /><figcaption>a little piece of my studio.</figcaption></figure><div><h2>hi, i’m judy.</h2><p className="about-meta">xīngyǐng · 星颖 · she/her</p><p>i grew up in suzhou and now call boston home. i work with data at tive, and spend a lot of my time noticing patterns.</p><p>my path has taken me through analytics, consumer insights, finance, and music. i like being curious about more than one thing.</p><p>outside of work, i paint in oil, take photographs, bake, read, and make little things for the internet.</p><div className="social-row"><a href={links.linkedin} aria-label="linkedin" {...outside}><LinkedinLogo size={20} /></a><a href={links.instagram} aria-label="instagram" {...outside}><InstagramLogo size={20} /></a><a href={links.github} aria-label="github" {...outside}><GithubLogo size={20} /></a></div></div></section><Experience />
-    <section className="about-section" id="offscreen"><h2>offscreen</h2><div className="offscreen-grid"><div><span>01</span><h3>painting slowly</h3><p>gardens, water, flowers, and the occasional imagined sky.</p><Link className="text-link" to="/studio">from the easel<ArrowUpRight size={16} /></Link></div><div><span>02</span><h3>making small things</h3><p>a little baking game. a wishlist. an excuse to try something new.</p><Link className="text-link" to="/">visit my projects<ArrowUpRight size={16} /></Link></div></div></section><section className="about-section" id="shelf"><h2>on my shelf</h2><p className="muted">a few books i keep nearby.</p><div className="book-list">{[['the emperor of gladness','ocean vuong'],['dreams','c. g. jung'],['the future perfect','cay kim']].map(([title,author])=><div key={title}><h3>{title}</h3><span>{author}</span></div>)}</div><a className="text-link" href={links.writing} {...outside}>notes on substack<ArrowUpRight size={16} /></a></section></div></div>;
-}
-function NotFound(){return <div className="photo-empty"><h2>this page wandered off.</h2><Link to="/" className="text-link">back to judy<ArrowUpRight size={17} /></Link></div>;}
-export default function App(){
-  const location=useLocation();
-  useEffect(()=>{const titles:Record<string,string>={'/':'homepage','/work':'work','/studio':'studio','/photography':'photography','/paintings':'paintings','/about':'about','/design-system':'design system'};document.title=`judy zhu | ${titles[normalizedPath(location.pathname)]||'page not found'}`;if(location.hash){requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView());}else window.scrollTo(0,0);},[location]);
-  return <><a className="skip-link" href="#main">skip to content</a><div className="site-shell"><Header /><main id="main" tabIndex={-1}><Routes><Route path="/" element={<Work />} /><Route path="/work" element={<Work />} /><Route path="/studio" element={<Studio />} /><Route path="/paintings" element={<Studio />} /><Route path="/photography" element={<Studio initial="photography" />} /><Route path="/about" element={<About />} /><Route path="/design-system" element={<DesignSystem />} /><Route path="*" element={<NotFound />} /></Routes></main><footer className="site-footer"><div><Link to="/">judy xīngyǐng</Link><span>© 2026</span></div><div><a href={links.instagram} {...outside}>instagram</a><a href={links.linkedin} {...outside}>linkedin</a><a href={links.portfolio} {...outside}>github</a><Link to="/design-system">design system</Link></div></footer></div></>;
+  </>;
 }
