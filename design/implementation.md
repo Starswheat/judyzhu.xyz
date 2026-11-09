@@ -35,7 +35,7 @@ cd ../judyzhu.xyz
 npm run build
 ```
 
-the output to publish is `dist/portfolio`. the build includes direct page entry points, the wishlist at `wishlist/`, existing bakery files, required legacy assets, and the main domain's unchanged `CNAME`. it does not deploy anything by itself.
+the output to publish is `dist/portfolio`. the build includes direct page entry points, the wishlist at `wishlist/`, existing bakery files, required legacy assets, and the main domain's unchanged `CNAME`. a local build does not deploy anything by itself. pushes to `main` run the GitHub Actions workflow, which builds both repositories and publishes this output. see [deployment notes](deployment.md).
 
 the wishlist must be built with relative asset paths so it can run both independently and within `/wishlist/`. its current vite configuration uses `base: './'`. a different checkout location can be supplied through `WISHLIST_BUILD_DIR`, pointing to the built `dist/client` directory. a missing wishlist build stops packaging with an actionable error.
 

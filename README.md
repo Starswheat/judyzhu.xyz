@@ -10,3 +10,5 @@ npm run dev
 ```
 
 build the sibling `wishlist.judyzhu.xyz` project before running `npm run build`. the complete static output is `dist/portfolio`.
+
+Pushes to `main` automatically build and publish the portfolio with [GitHub Actions](.github/workflows/deploy-pages.yml). See [deployment notes](design/deployment.md) for the Pages configuration and rollback procedure.

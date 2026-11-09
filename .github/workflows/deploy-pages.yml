@@ -1,0 +1,90 @@
+name: Publish portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: Check out portfolio
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          path: portfolio
+          persist-credentials: false
+
+      - name: Check out wishlist
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: Starswheat/wishlist.judyzhu.xyz
+          ref: main
+          path: wishlist
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: |
+            portfolio/package-lock.json
+            wishlist/package-lock.json
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
+      - name: Install wishlist dependencies
+        run: npm ci
+        working-directory: wishlist
+
+      - name: Test wishlist
+        run: npm test
+        working-directory: wishlist
+
+      - name: Build wishlist
+        run: npm run build
+        working-directory: wishlist
+
+      - name: Install portfolio dependencies
+        run: npm ci
+        working-directory: portfolio
+
+      - name: Build portfolio and package preserved routes
+        run: npm run build
+        working-directory: portfolio
+        env:
+          WISHLIST_BUILD_DIR: ${{ github.workspace }}/wishlist/dist/client
+
+      - name: Upload compiled site
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: portfolio/dist/portfolio
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
