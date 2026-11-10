@@ -4,6 +4,8 @@ import fish from '../assets/paintings/betta-fish-scan.jpg';
 import lagoon from '../assets/paintings/palm-lagoon-scan.jpg';
 import sunflower from '../assets/paintings/sunflower-blue-scan.jpg';
 import balloons from '../assets/paintings/balloon-sky-scan.jpg';
+import horse from '../assets/paintings/white-horse-scan.jpg';
+import pink from '../assets/paintings/pink-currents-scan.jpg';
 
 export const site = {
   name: 'Judy Xingying Zhu',
@@ -30,6 +32,8 @@ export const paintings = [
   { title: 'Palm lagoon', image: lagoon, alt: 'The bow of a boat facing palms reflected in still water at sunset' },
   { title: 'Sunflower on blue', image: sunflower, alt: 'A yellow sunflower painted against a bright blue background' },
   { title: 'Balloon sky', image: balloons, alt: 'Colorful hot air balloons and two figures beneath a pink sky' },
+  { title: 'White horse', image: horse, alt: 'A white horse with a flowing red and yellow mane against an orange-red background' },
+  { title: 'Pink currents', image: pink, alt: 'Sweeping loops of pink paint across the lower part of a deep burgundy canvas' },
 ];
 
 export const about = [
