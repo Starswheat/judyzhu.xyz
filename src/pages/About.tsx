@@ -4,7 +4,7 @@ import OrganizationRotation from '../components/OrganizationRotation';
 // The ids match the anchors older links point at: #hello, #experience, #shelf.
 export default function About() {
   return <>
-    <h1 id="hello">{site.name} <span lang="zh-Hans">{site.nameZh}</span></h1>
+    <h1 id="hello">{site.name} <span className="name-zh" lang="zh-Hans">{site.nameZh}</span></h1>
     <p>{about.intro}</p>
     <p id="experience">{about.experience}</p>
     {about.personal.map(paragraph => <p key={paragraph}>{paragraph}</p>)}

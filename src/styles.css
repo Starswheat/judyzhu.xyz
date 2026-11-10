@@ -11,6 +11,7 @@
   --color-scrim: rgba(0, 0, 0, .8);
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-kai: 'Kaiti SC', 'STKaiti', 'KaiTi', '楷体', serif;
   --text-title: 28px;
   --text-body: 15px;
   --text-small: 13px;
@@ -57,6 +58,7 @@ html { background: var(--color-page); color: var(--color-ink); font-family: var(
 body { margin: 0; }
 h1, h2, p, ul, figure { margin: 0; padding: 0; }
 h1 { max-width: 20em; margin-bottom: var(--space-12); font-size: var(--text-title); font-weight: 600; line-height: 1.25; letter-spacing: -.02em; text-wrap: balance; }
+.name-zh { font-family: var(--font-kai); font-weight: 400; letter-spacing: 0; }
 h2 { margin: var(--space-16) 0 var(--space-4); font-size: var(--text-body); font-weight: 600; }
 p { max-width: 62ch; }
 p + p { margin-top: var(--space-4); }
@@ -131,9 +133,9 @@ main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
 .organization-logo--tive { width: calc(var(--space-8) + var(--space-12)); }
 .organization-logo--avex { width: var(--space-24); }
 .organization-logo--elc { width: calc(var(--space-16) * 2); height: var(--space-16); }
-.organization-logo--elc img, .organization-logo--huatai img { height: 100%; object-fit: cover; }
+.organization-logo--elc img { height: 100%; object-fit: cover; }
 .organization-logo--cas { width: var(--logo-wide-width); }
-.organization-logo--huatai img, .organization-logo--cas img { filter: var(--logo-detail-filter); mix-blend-mode: var(--logo-blend); }
+.organization-logo--cas img { filter: var(--logo-detail-filter); mix-blend-mode: var(--logo-blend); }
 
 @media (prefers-reduced-motion: no-preference) {
   .organization-window { overflow: hidden; }

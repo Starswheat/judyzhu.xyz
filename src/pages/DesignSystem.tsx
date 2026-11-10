@@ -6,6 +6,19 @@ import { useTheme } from '../theme';
 // from the document, so it can never drift from what the site uses.
 const read = (token: string) => getComputedStyle(document.documentElement).getPropertyValue(token).trim();
 
+// Use one display format, #RRGGBBAA, while keeping CSS as the source of truth.
+const readColor = (token: string) => {
+  const value = read(token).toLowerCase();
+  if (/^#[\da-f]{6}$/.test(value)) return `${value}ff`;
+  if (/^#[\da-f]{8}$/.test(value)) return value;
+  const rgb = value.match(/^rgba?\(([^)]+)\)$/);
+  if (!rgb) return value;
+  const channels = rgb[1].split(',').map(Number);
+  if (channels.length < 3 || channels.length > 4 || channels.some(Number.isNaN)) return value;
+  const byte = (number: number) => Math.round(Math.max(0, Math.min(255, number))).toString(16).padStart(2, '0');
+  return `#${channels.slice(0, 3).map(byte).join('')}${byte((channels[3] ?? 1) * 255)}`;
+};
+
 const { colors, type, rules, headings, columns } = designSystem;
 const space = ['--space-1', '--space-2', '--space-3', '--space-4', '--space-6', '--space-8', '--space-12', '--space-16', '--space-24'];
 
@@ -26,7 +39,7 @@ export default function DesignSystem() {
         {colors.map(([name, token]) => <tr key={token}>
           <td><span className="swatch" style={{ background: `var(${token})` }} /></td>
           <td>{name}<code>{token}</code></td>
-          <td><code>{read(token)}</code></td>
+          <td><code>{readColor(token)}</code></td>
         </tr>)}
       </tbody>
     </table>
