@@ -24,15 +24,14 @@
   --space-16: 64px;
   --space-24: 96px;
   --page-width: 880px;
+  --text-width: 62ch;
   --target: 44px;
   --radius: 10px;
   --logo-filter: brightness(0) invert(1);
   --logo-detail-filter: grayscale(1) contrast(4) invert(1);
+  --logo-reverse-filter: grayscale(1) brightness(2) contrast(4);
   --logo-blend: screen;
   --logo-opacity: .62;
-  --logo-width: 160px;
-  --logo-wide-width: 240px;
-  --logo-loop-duration: 48s;
 }
 
 /* Day: warm paper, ink text and a deeper osmanthus mark. */
@@ -48,6 +47,7 @@
   --color-scrim: rgba(36, 35, 32, .55);
   --logo-filter: brightness(0);
   --logo-detail-filter: grayscale(1) contrast(4);
+  --logo-reverse-filter: grayscale(1) brightness(2) contrast(4) invert(1);
   --logo-blend: multiply;
 }
 
@@ -58,7 +58,7 @@ body { margin: 0; }
 h1, h2, p, ul, figure { margin: 0; padding: 0; }
 h1 { max-width: 20em; margin-bottom: var(--space-12); font-size: var(--text-title); font-weight: 600; line-height: 1.25; letter-spacing: -.02em; text-wrap: balance; }
 h2 { margin: var(--space-16) 0 var(--space-4); font-size: var(--text-body); font-weight: 600; }
-p { max-width: 62ch; }
+p { max-width: var(--text-width); }
 p + p { margin-top: var(--space-4); }
 ul { list-style: none; }
 img { display: block; max-width: 100%; }
@@ -73,6 +73,7 @@ code { color: var(--color-muted); font-family: var(--font-mono); font-size: var(
 
 /* Shell */
 .shell { display: flex; flex-direction: column; max-width: var(--page-width); min-height: 100dvh; margin: 0 auto; padding: 0 var(--space-6); }
+.shell--about { max-width: calc(var(--text-width) + var(--space-6) * 2); }
 .header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--space-3); min-height: var(--space-16); }
 .header-name { display: flex; align-items: center; min-height: var(--target); font-weight: 600; white-space: nowrap; }
 .nav, .footer nav { display: flex; flex-wrap: wrap; gap: 0 var(--space-6); }
@@ -118,41 +119,20 @@ main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
 .viewer-bar { display: flex; align-items: center; gap: var(--space-1); padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4); }
 .viewer-bar h2 { margin: 0 auto 0 0; font-weight: 500; }
 
-/* About: a quiet loop; the default is a static, wrapping list. */
-.organization-rotation { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-8); padding: var(--space-6) 0; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
-.organization-window { flex: 1; min-width: 0; }
-.organization-group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-8) var(--space-12); }
-.organization-group[aria-hidden='true'], .organization-toggle { display: none; }
-.organization-logo { display: flex; flex: none; align-items: center; justify-content: center; width: var(--logo-width); height: var(--space-12); }
-.organization-logo img { width: 100%; max-height: 100%; object-fit: contain; filter: var(--logo-filter); opacity: var(--logo-opacity); }
-.organization-logo--tive { width: calc(var(--space-8) + var(--space-12)); }
-.organization-logo--avex { width: var(--space-24); }
-.organization-logo--elc, .organization-logo--cas { width: var(--logo-wide-width); }
-.organization-logo--huatai img, .organization-logo--cas img { filter: var(--logo-detail-filter); mix-blend-mode: var(--logo-blend); }
-
-@media (prefers-reduced-motion: no-preference) {
-  .organization-window { overflow: hidden; }
-  .organization-track { display: flex; width: max-content; animation: organization-loop var(--logo-loop-duration) linear infinite; }
-  .organization-group, .organization-group[aria-hidden='true'] { display: flex; flex: none; flex-wrap: nowrap; gap: var(--space-12); padding-right: var(--space-12); }
-  .organization-toggle { display: grid; flex: none; }
-  .organization-rotation[data-paused='true'] .organization-track,
-  .organization-rotation:focus-within .organization-track,
-  .organization-window:hover .organization-track { animation-play-state: paused; }
-}
-
-@keyframes organization-loop {
-  to { transform: translateX(-50%); }
-}
-
 /* About and design system: rows */
 .rows { width: 100%; border-collapse: collapse; text-align: left; }
 .rows tr, .rows li { border-top: 1px solid var(--color-line); }
 .rows td, .rows li { padding: var(--space-3) 0; vertical-align: top; }
 .rows td + td { padding-left: var(--space-6); color: var(--color-muted); }
 .rows td:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.rows li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 var(--space-6); }
-.rows li span + span { color: var(--color-muted); }
-.rows li span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.rows li { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-6); }
+.rows li > span + span { color: var(--color-muted); }
+.rows li > span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.detail-label { display: flex; align-items: center; gap: var(--space-3); }
+.detail-value { align-self: center; }
+.organization-emblem { flex: none; width: var(--space-6); height: var(--space-6); overflow: hidden; filter: var(--logo-filter); opacity: var(--logo-opacity); }
+.organization-emblem--huatai, .organization-emblem--cas { filter: var(--logo-detail-filter); mix-blend-mode: var(--logo-blend); }
+.organization-emblem--elc { filter: var(--logo-reverse-filter); mix-blend-mode: var(--logo-blend); }
 .swatch { display: block; width: var(--space-6); height: var(--space-6); border: 1px solid var(--color-line); border-radius: 50%; }
 .color-tokens td:nth-child(2) { color: var(--color-ink); }
 .color-tokens td:nth-child(2) code { display: block; }
@@ -167,6 +147,9 @@ main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
   .projects, .paintings { grid-template-columns: minmax(0, 1fr); }
   .nav { gap: 0 var(--space-3); }
   .rows td + td { padding-left: var(--space-3); }
+  .detail-list li { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+  .rows.detail-list li > .detail-value { text-align: left; }
+  .detail-list .has-emblem > .detail-value { padding-left: calc(var(--space-6) + var(--space-3)); }
   main { padding: var(--space-12) 0 var(--space-16); }
   h1 { margin-bottom: var(--space-8); }
 }

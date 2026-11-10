@@ -7,11 +7,11 @@ The application lives in `src/`, with React, TypeScript, Vite, and Phosphor icon
 - `src/index.html` is the Vite entry point. Its small inline script restores an explicitly saved theme before the page paints.
 - `src/main.tsx` mounts the theme provider, router, and application.
 - `src/App.tsx` owns the shell and route list; `src/pages/` owns individual screens.
-- `src/content.ts` holds biography paragraphs, languages, links, projects, painting imports, reading, and design-system copy.
+- `src/content.ts` holds biography paragraphs, experience, languages, links, projects, painting imports, reading, and design-system copy.
 - `src/assets/paintings/` holds painting images and their preparation materials. Only imported assets enter the production bundle.
 - `src/components/ProjectPlates.tsx` draws the project thumbnails.
 
-The About page presents current work, earlier experience, and personal interests as three paragraphs. Keep the `hello`, `experience`, and `shelf` anchor targets intact.
+The About page presents current work, personal background, and interests as three paragraphs. Experience and Reading share `src/components/DetailList.tsx`, with small static organization emblems beside company names. The entire About shell uses the prose width; list details stack below labels on small screens. Keep the `hello`, `experience`, and `shelf` anchor targets intact.
 
 ## Design and themes
 
@@ -27,7 +27,7 @@ The design system reads computed CSS tokens and refreshes on theme or viewport c
 | --- | --- |
 | `/` | Work |
 | `/paintings/` | Paintings and image viewer |
-| `/about/` | Biography and reading |
+| `/about/` | Biography, experience, and reading |
 | `/design-system/` | Live tokens and design rules |
 | `/work/` | Work alias |
 | `/studio/`, `/photography/` | Paintings aliases |

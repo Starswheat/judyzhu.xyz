@@ -7,7 +7,7 @@ import balloons from './assets/paintings/balloon-sky-scan.jpg';
 import horse from './assets/paintings/white-horse-scan.jpg';
 import pink from './assets/paintings/pink-currents-scan.jpg';
 import tiveLogo from './assets/organizations/tive.svg';
-import elcLogo from './assets/organizations/estee-lauder-companies.png';
+import elcLogo from './assets/organizations/estee-lauder-emblem.ico';
 import huataiLogo from './assets/organizations/huatai-international.png';
 import avexLogo from './assets/organizations/avex.png';
 import boschLogo from './assets/organizations/bosch.svg';
@@ -53,7 +53,6 @@ export const designSystem = {
 export const elsewhere = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/xingyzhu/' },
   { label: 'GitHub', href: 'https://github.com/Starswheat' },
-  { label: 'Instagram', href: 'https://www.instagram.com/judyfruitee/' },
   { label: 'Substack', href: 'https://xingyzhu.substack.com/' },
 ];
 
@@ -73,8 +72,8 @@ export const paintings = [
 ];
 
 export const about = {
-  intro: 'I’m a data analyst at Tive in Boston, working on supply chain analytics. I studied Data Theory at UCLA and graduated in 2025.',
-  experience: 'Before Tive, I worked in enterprise marketing at Estée Lauder Companies and biotech investment banking at Huatai International. Earlier, I handled copyright and licensing for music demos at Avex Music Group, automated manufacturing data workflows at Bosch, and researched autism spectrum disorder at the Chinese Academy of Sciences.',
+  intro: 'I’m a data analyst at Tive in Boston, where I build the pipelines and models behind our supply chain analytics (Snowflake, dbt, Airflow). Recent work includes churn prediction, cellular dead-zone mapping, and evals for an AI agent. I studied Data Theory at UCLA, class of 2025.',
+  headings: { experience: 'Experience', reading: 'Reading' },
   personal: [
     'I grew up in Suzhou, China, and San Jose, California. I speak Mandarin, Shanghainese, Japanese, and English. I love fresh ideas and good design. I consume way more than I create. Calling it research for now.',
     'Very opinionated about food. Beli top 1% worldwide, for what it’s worth. I also finished a baking course at Le Cordon Bleu, love working out, and made it through HYROX. I’ve been flying internationally in economy since I was 12, so I’m pretty sure I’ve evolved past jet lag.',
@@ -87,16 +86,11 @@ export const reading = [
   { title: 'The Future Perfect', author: 'Cay Kim' },
 ];
 
-export const organizationRotation = {
-  label: 'Organizations I’ve worked with',
-  pause: 'Pause logo rotation',
-  resume: 'Resume logo rotation',
-  organizations: [
-    { name: 'Tive', logo: tiveLogo, style: 'tive' },
-    { name: 'Estée Lauder Companies', logo: elcLogo, style: 'elc' },
-    { name: 'Huatai International', logo: huataiLogo, style: 'huatai' },
-    { name: 'Avex Music Group', logo: avexLogo, style: 'avex' },
-    { name: 'Bosch', logo: boschLogo, style: 'bosch' },
-    { name: 'Chinese Academy of Sciences', logo: casLogo, style: 'cas' },
-  ],
-};
+export const experience = [
+  { label: 'Tive', detail: 'Data pipelines & models', emblem: { image: tiveLogo, width: 114, height: 38, viewBox: '0 0 32 38', style: 'tive' } },
+  { label: 'Estée Lauder Companies', detail: 'Enterprise marketing', emblem: { image: elcLogo, width: 16, height: 16, viewBox: '1 3 14 9', style: 'elc' } },
+  { label: 'Huatai International', detail: 'Biotech investment banking', emblem: { image: huataiLogo, width: 204, height: 66, viewBox: '4 8 52 50', style: 'huatai' } },
+  { label: 'Avex Music Group', detail: 'Copyright & licensing', emblem: { image: avexLogo, width: 214, height: 50, viewBox: '146 0 68 50', style: 'avex' } },
+  { label: 'Bosch', detail: 'Manufacturing data automation', emblem: { image: boschLogo, width: 433, height: 97, viewBox: '0 0 97 97', style: 'bosch' } },
+  { label: 'Chinese Academy of Sciences', detail: 'Autism spectrum disorder research', emblem: { image: casLogo, width: 614, height: 140, viewBox: '0 0 140 140', style: 'cas' } },
+];
