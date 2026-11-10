@@ -14,6 +14,36 @@ export const site = {
   source: 'https://github.com/Starswheat/judyzhu.xyz',
 };
 
+export const appearance = {
+  switchToDay: 'Switch to day mode',
+  switchToDark: 'Switch to dark mode',
+};
+
+export const designSystem = {
+  title: 'Design system',
+  headings: { color: 'Color', type: 'Type', space: 'Space', rules: 'Rules' },
+  columns: { swatch: 'Swatch', name: 'Name and token', token: 'Token', value: 'Value', sample: 'Sample', size: 'Size' },
+  colors: [
+    ['Page', '--color-page'],
+    ['Surface', '--color-surface'],
+    ['Raised', '--color-raised'],
+    ['Line', '--color-line'],
+    ['Text', '--color-ink'],
+    ['Muted', '--color-muted'],
+    ['Osmanthus', '--color-accent'],
+    ['Scrim', '--color-scrim'],
+  ],
+  type: [['Title', '--text-title', 600], ['Body', '--text-body', 400], ['Small', '--text-small', 400]],
+  rules: [
+    'Dark by default. Day mode is an explicit choice, remembered on this device.',
+    'One gold mark per screen.',
+    'Sentence case.',
+    'No taglines, helper text or secondary labels. If a screen needs one, change the layout.',
+    'Every colour, size and space comes from a token.',
+  ],
+  source: 'Source on GitHub',
+} as const;
+
 export const elsewhere = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/xingyzhu/' },
   { label: 'GitHub', href: 'https://github.com/Starswheat' },

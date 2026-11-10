@@ -1,11 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Judy Xingying Zhu</title>
 <meta name="description" content="I’m a data analyst at Tive in Boston. I work on supply chain analytics. Before this, I studied Data Theory at UCLA. I grew up in Suzhou, China." />
 <meta name="theme-color" content="#0b0c0e" />
+<script>
+  // Restore an explicit choice before the stylesheet paints. Dark is the default,
+  // including when storage is unavailable or contains an unrecognized value.
+  try {
+    if (localStorage.getItem('judyzhu-theme') === 'light') {
+      document.documentElement.dataset.theme = 'light';
+    }
+  } catch {}
+</script>
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </head>

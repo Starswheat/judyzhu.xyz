@@ -28,6 +28,19 @@
   --radius: 10px;
 }
 
+/* Day: warm paper, ink text and a deeper osmanthus mark. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-page: #f6f4ef;
+  --color-surface: #eeebe4;
+  --color-raised: #e3ded4;
+  --color-line: #d6d1c7;
+  --color-ink: #242320;
+  --color-muted: #625f58;
+  --color-accent: #805b10;
+  --color-scrim: rgba(36, 35, 32, .55);
+}
+
 /* Base */
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--color-page); color: var(--color-ink); font-family: var(--font-sans); font-size: var(--text-body); line-height: 1.6; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
@@ -53,6 +66,7 @@ code { color: var(--color-muted); font-family: var(--font-mono); font-size: var(
 .header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--space-3); min-height: var(--space-16); }
 .header-name { display: flex; align-items: center; min-height: var(--target); font-weight: 600; white-space: nowrap; }
 .nav, .footer nav { display: flex; flex-wrap: wrap; gap: 0 var(--space-6); }
+.nav { margin-left: auto; }
 .nav a, .footer a { display: flex; align-items: center; min-height: var(--target); color: var(--color-muted); transition: color 120ms ease; }
 .nav a:hover, .nav a[aria-current='page'], .footer a:hover { color: var(--color-ink); }
 main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
@@ -105,10 +119,16 @@ main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
 .rows li span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 .experience li { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) 6em; }
 .swatch { display: block; width: var(--space-6); height: var(--space-6); border: 1px solid var(--color-line); border-radius: 50%; }
+.color-tokens td:nth-child(2) { color: var(--color-ink); }
+.color-tokens td:nth-child(2) code { display: block; }
+.color-tokens td:last-child, .color-tokens td:last-child code { white-space: normal; overflow-wrap: anywhere; }
 .bar { display: block; height: var(--space-2); border-radius: 2px; background: var(--color-muted); }
 
 @media (max-width: 640px) {
   :root { --text-title: 24px; }
+  .header { display: grid; grid-template-columns: 1fr auto; }
+  .header .nav { grid-column: 1 / -1; grid-row: 2; margin-left: 0; }
+  .theme-toggle { grid-column: 2; grid-row: 1; }
   .projects, .paintings { grid-template-columns: minmax(0, 1fr); }
   .nav { gap: 0 var(--space-3); }
   .experience li { grid-template-columns: minmax(0, 1fr) auto; }

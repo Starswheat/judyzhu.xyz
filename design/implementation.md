@@ -1,6 +1,6 @@
 # judy xīngyǐng | implementation
 
-The current direction is a near-black page, chalk text, silver secondary text and one gold mark per screen. Copy is in sentence case, with no taglines, helper text or secondary labels. The rules are in [AGENTS.md](../AGENTS.md) and on `/design-system`. The earlier white, lowercase, liquid glass direction is superseded.
+The default direction is a near-black page, chalk text, silver secondary text and one gold mark per screen. An optional day mode uses warm paper, ink text and a deeper gold, with the same typography, spacing and components. The header's sun/moon button switches modes; an explicit choice is saved locally and restored before the first paint. Without a saved choice (or when storage is unavailable), the site starts dark regardless of the system appearance. The design system reads the active theme's tokens directly. Copy is in sentence case, with no taglines, helper text or secondary labels. The rules are in [AGENTS.md](../AGENTS.md) and on `/design-system`. The earlier white, lowercase, liquid glass direction is superseded.
 
 ## pages
 

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import { elsewhere, site } from './content';
+import ThemeToggle from './components/ThemeToggle';
 import About from './pages/About';
 import DesignSystem from './pages/DesignSystem';
 import Paintings from './pages/Paintings';
@@ -42,6 +43,7 @@ export default function App() {
         <nav className="nav" aria-label="Main">
           {nav.map(([label, to]) => <Link key={to} to={to} aria-current={screen === label ? 'page' : undefined}>{label}</Link>)}
         </nav>
+        <ThemeToggle />
       </header>
       <main id="main" tabIndex={-1}>
         <Routes>
