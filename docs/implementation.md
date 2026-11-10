@@ -11,7 +11,7 @@ The application lives in `src/`, with React, TypeScript, Vite, and Phosphor icon
 - `src/assets/paintings/` holds painting images and their preparation materials. Only imported assets enter the production bundle.
 - `src/components/ProjectPlates.tsx` draws the project thumbnails.
 
-The About page presents current work, personal background, and interests as three paragraphs. Experience and Reading share `src/components/DetailList.tsx`, with small static organization emblems beside company names. Experience also has a right-aligned date column. The entire About shell uses the prose width; list details stack below labels on small screens, with dates remaining on the right. Keep the `hello`, `experience`, and `shelf` anchor targets intact.
+The About page presents current work, personal background, and interests as three paragraphs. Experience and Reading share `src/components/DetailList.tsx`. Experience rows contain company, role, and date, with single-line roles on desktop and stacked roles below company names on phones. The entire About shell shares the `--about-width` measure. Pointer hover highlights one experience row and mutes the others; all content stays visible, using the existing readable text colors. Reduced motion disables the color transitions. Keep the `hello`, `experience`, and `shelf` anchor targets intact.
 
 ## Design and themes
 

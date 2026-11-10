@@ -28,7 +28,6 @@ src/                   Portfolio application
   theme.tsx            Theme state and persistence
   pages/               Work, Paintings, About, and Design system
   components/          Shared controls, project illustrations, and detail lists
-  assets/organizations/ Official organization logos
   assets/paintings/    Painting images and preparation materials
 public/                Files served at unchanged URLs and copied into builds
   CNAME                Main domain: judyzhu.xyz
@@ -60,7 +59,7 @@ The root keeps the README, agent guidance, license, and npm manifests. Generated
 | Experience and Reading lists | [`src/components/DetailList.tsx`](src/components/DetailList.tsx) |
 | Icons or an existing static page | [`public/`](public/) |
 
-Imported painting and organization logo files are bundled by Vite. Logo sources are recorded in [organization logos](docs/organization-logos.md). Files in `public/` are copied unchanged and retain their URL paths. Archived code and documentation are not published.
+Imported painting files are bundled by Vite. Files in `public/` are copied unchanged and retain their URL paths. Archived code and documentation are not published.
 
 The design system reads live CSS values. Define colors, type sizes, and spacing in the stylesheet rather than duplicating them in components. When adding a route, update both `src/App.tsx` and `scripts/prepare-portfolio.mjs` so direct visits work on GitHub Pages.
 
