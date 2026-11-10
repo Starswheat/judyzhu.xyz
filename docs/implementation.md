@@ -7,11 +7,11 @@ The application lives in `src/`, with React, TypeScript, Vite, and Phosphor icon
 - `src/index.html` is the Vite entry point. Its small inline script restores an explicitly saved theme before the page paints.
 - `src/main.tsx` mounts the theme provider, router, and application.
 - `src/App.tsx` owns the shell and route list; `src/pages/` owns individual screens.
-- `src/content.ts` holds biography paragraphs, experience, languages, links, projects, painting imports, reading, and design-system copy.
+- `src/content.ts` holds biography paragraphs, languages, links, projects, painting imports, reading, and design-system copy.
 - `src/assets/paintings/` holds painting images and their preparation materials. Only imported assets enter the production bundle.
 - `src/components/ProjectPlates.tsx` draws the project thumbnails.
 
-The About page presents current work, personal background, and interests as three paragraphs. Experience and Reading share `src/components/DetailList.tsx`. Experience rows contain company, role, and date, with single-line roles on desktop and stacked roles below company names on phones. The entire About shell shares the `--about-width` measure. Pointer hover highlights one experience row and mutes the others; all content stays visible, using the existing readable text colors. Reduced motion disables the color transitions. Keep the `hello`, `experience`, and `shelf` anchor targets intact.
+The About page presents current work, earlier experience, and personal interests as three paragraphs. Keep the `hello`, `experience`, and `shelf` anchor targets intact.
 
 ## Design and themes
 
@@ -27,7 +27,7 @@ The design system reads computed CSS tokens and refreshes on theme or viewport c
 | --- | --- |
 | `/` | Work |
 | `/paintings/` | Paintings and image viewer |
-| `/about/` | Biography, experience, and reading |
+| `/about/` | Biography and reading |
 | `/design-system/` | Live tokens and design rules |
 | `/work/` | Work alias |
 | `/studio/`, `/photography/` | Paintings aliases |

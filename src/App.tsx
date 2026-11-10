@@ -37,7 +37,7 @@ export default function App() {
 
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <div className={screen === 'About' ? 'shell shell--about' : 'shell'}>
+    <div className="shell">
       <header className="header">
         <Link className="header-name" to="/">{site.name}</Link>
         <nav className="nav" aria-label="Main">

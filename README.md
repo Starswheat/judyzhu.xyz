@@ -27,7 +27,8 @@ src/                   Portfolio application
   styles.css           Design tokens, themes, and styles
   theme.tsx            Theme state and persistence
   pages/               Work, Paintings, About, and Design system
-  components/          Shared controls, project illustrations, and detail lists
+  components/          Shared controls, project illustrations, and logo rotation
+  assets/organizations/ Official organization logos
   assets/paintings/    Painting images and preparation materials
 public/                Files served at unchanged URLs and copied into builds
   CNAME                Main domain: judyzhu.xyz
@@ -56,10 +57,10 @@ The root keeps the README, agent guidance, license, and npm manifests. Generated
 | Page layout | [`src/pages/`](src/pages/) |
 | Navigation or routes | [`src/App.tsx`](src/App.tsx) |
 | Project thumbnail drawings | [`src/components/ProjectPlates.tsx`](src/components/ProjectPlates.tsx) |
-| Experience and Reading lists | [`src/components/DetailList.tsx`](src/components/DetailList.tsx) |
+| About logo rotation | [`src/components/OrganizationRotation.tsx`](src/components/OrganizationRotation.tsx) |
 | Icons or an existing static page | [`public/`](public/) |
 
-Imported painting files are bundled by Vite. Files in `public/` are copied unchanged and retain their URL paths. Archived code and documentation are not published.
+Imported painting and organization logo files are bundled by Vite. Logo sources are recorded in [organization logos](docs/organization-logos.md). Files in `public/` are copied unchanged and retain their URL paths. Archived code and documentation are not published.
 
 The design system reads live CSS values. Define colors, type sizes, and spacing in the stylesheet rather than duplicating them in components. When adding a route, update both `src/App.tsx` and `scripts/prepare-portfolio.mjs` so direct visits work on GitHub Pages.
 

@@ -6,6 +6,12 @@ import sunflower from './assets/paintings/sunflower-blue-scan.jpg';
 import balloons from './assets/paintings/balloon-sky-scan.jpg';
 import horse from './assets/paintings/white-horse-scan.jpg';
 import pink from './assets/paintings/pink-currents-scan.jpg';
+import tiveLogo from './assets/organizations/tive.svg';
+import elcLogo from './assets/organizations/estee-lauder-companies.png';
+import huataiLogo from './assets/organizations/huatai-international.png';
+import avexLogo from './assets/organizations/avex.png';
+import boschLogo from './assets/organizations/bosch.svg';
+import casLogo from './assets/organizations/chinese-academy-of-sciences.png';
 
 export const site = {
   name: 'Judy Xingying Zhu',
@@ -47,6 +53,7 @@ export const designSystem = {
 export const elsewhere = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/xingyzhu/' },
   { label: 'GitHub', href: 'https://github.com/Starswheat' },
+  { label: 'Instagram', href: 'https://www.instagram.com/judyfruitee/' },
   { label: 'Substack', href: 'https://xingyzhu.substack.com/' },
 ];
 
@@ -67,7 +74,7 @@ export const paintings = [
 
 export const about = {
   intro: 'I’m a data analyst at Tive in Boston, where I build the pipelines and models behind our supply chain analytics (Snowflake, dbt, Airflow). Recent work includes churn prediction, cellular dead-zone mapping, and evals for AI agents. I studied Data Theory at UCLA, class of 2025.',
-  headings: { experience: 'Experience', reading: 'Reading' },
+  experience: 'Before Tive, I worked in enterprise marketing at Estée Lauder Companies and biotech investment banking at Huatai International. Earlier, I handled copyright and licensing for music demos at Avex Music Group, automated manufacturing data workflows at Bosch, and researched autism spectrum disorder at the Chinese Academy of Sciences.',
   personal: [
     'I grew up in Suzhou, China, and San Jose, California. I speak Mandarin, Shanghainese, Japanese, and English. I love fresh ideas and good design. I consume way more than I create. Calling it research for now.',
     'Very opinionated about food. Beli top 1% worldwide, for what it’s worth. I also finished a baking course at Le Cordon Bleu, love working out, and made it through HYROX Singles. I’ve been flying internationally in economy since I was 12, so I’m pretty sure I’ve evolved past jet lag.',
@@ -80,11 +87,16 @@ export const reading = [
   { title: 'The Future Perfect', author: 'Cay Kim' },
 ];
 
-export const experience = [
-  { label: 'Tive', detail: 'Data Analyst', date: 'Now' },
-  { label: 'Estée Lauder Companies', detail: 'Consumer Intelligence Assistant Manager', date: '2024' },
-  { label: 'Huatai International', detail: 'Investment Banking Summer Analyst', date: '2022, 2023' },
-  { label: 'Avex Music Group', detail: 'Recording Studio A&R', date: '2022–2023' },
-  { label: 'Bosch', detail: 'Data Science Intern', date: '2022' },
-  { label: 'Institute of Neuroscience', detail: 'Research Assistant', date: '2018–2020' },
-];
+export const organizationRotation = {
+  label: 'Organizations I’ve worked with',
+  pause: 'Pause logo rotation',
+  resume: 'Resume logo rotation',
+  organizations: [
+    { name: 'Tive', logo: tiveLogo, style: 'tive' },
+    { name: 'Estée Lauder Companies', logo: elcLogo, style: 'elc' },
+    { name: 'Huatai International', logo: huataiLogo, style: 'huatai' },
+    { name: 'Avex Music Group', logo: avexLogo, style: 'avex' },
+    { name: 'Bosch', logo: boschLogo, style: 'bosch' },
+    { name: 'Chinese Academy of Sciences', logo: casLogo, style: 'cas' },
+  ],
+};
