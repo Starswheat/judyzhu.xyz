@@ -9,7 +9,9 @@ React, TypeScript and Vite. No CSS framework, no web fonts.
 - `npm run check` type-checks.
 - `npm run build` type-checks, builds, then packages the legacy pages and the wishlist.
   The last step needs the sibling `wishlist.judyzhu.xyz` repository built first. See
-  `design/implementation.md`.
+  `docs/implementation.md`.
+- `npm test` verifies the built site's routes and assets, then the bakery export safeguards.
+  Run `npm run build` first. Tests need Python 3.9 or newer in addition to Node 24.
 
 ## Where things live
 
@@ -17,8 +19,14 @@ React, TypeScript and Vite. No CSS framework, no web fonts.
 - `src/styles.css` holds the tokens in `:root`, then all styles. It is the only stylesheet.
 - `src/App.tsx` holds the shell and the `routes` list. `src/pages/` has one file per screen.
 - `src/components/ProjectPlates.tsx` draws the two project thumbnails.
-- `bakery.*`, `baking.*` and `m/` at the root are legacy pages. The build copies them as they
-  are. Do not edit them from here.
+- `src/index.html` is the Vite entry point; imported images are in `src/assets/`.
+- `public/` holds icons, CNAME, and preserved `bakery.*`, `baking.*`, and `m/` pages.
+  Vite serves and copies these files at their existing root-relative URLs. Preserve legacy
+  content unless the task explicitly covers it.
+- `config/` holds Vite and TypeScript configuration. Root npm scripts pass those paths.
+- `scripts/` holds packaging and export tools; `tests/` verifies their output and safeguards.
+- `docs/` holds current maintenance guidance. `archive/` and `docs/archive/` are historical
+  material and must not be copied into the release.
 
 ## Design rules
 

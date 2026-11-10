@@ -16,7 +16,8 @@ Actions → Publish portfolio → Run workflow, with `main` selected.
 3. Run the wishlist tests and build its client.
 4. Run the portfolio TypeScript check, Vite build, and route packaging with
    `WISHLIST_BUILD_DIR` pointing to the freshly built wishlist client.
-5. Upload only `dist/portfolio`, then deploy it to the `github-pages` environment.
+5. Run the portfolio build, asset, route, and bakery migration tests with `npm test`.
+6. Upload only `dist/portfolio`, then deploy it to the `github-pages` environment.
 
 The output preserves `/work/`, `/studio/`, `/photography/`, `/paintings/`,
 `/about/`, `/design-system/`, `/wishlist/`, and the legacy bakery, baking, and
@@ -39,7 +40,12 @@ refresh the bundled copy without changing portfolio source.
 Check the [workflow run](https://github.com/Starswheat/judyzhu.xyz/actions/workflows/deploy-pages.yml)
 for successful build and deploy jobs. Verify the HTTPS homepage, direct page
 routes, painting images, wishlist assets, and the bakery redirect. The homepage
-must reference compiled `/assets/` JavaScript and CSS, never `/src/main.tsx`.
+must reference compiled `/assets/` JavaScript and CSS, never the source `/main.tsx` entry.
+
+The source HTML lives in `src/index.html`; configuration lives in `config/`.
+Vite copies `public/` into the release without changing its URL paths, including
+`public/CNAME` as `/CNAME`. The archive, documentation, tests, and source folders
+are excluded from the published artifact.
 
 Local verification uses the same commands documented in
 [implementation notes](implementation.md). A local build does not publish.

@@ -49,9 +49,10 @@ class References(HTMLParser):
 
 def site_files(root=ROOT):
     """Use the existing page as the only source of bakery markup and behavior."""
-    if (root / "CNAME").read_text().strip() != "judyzhu.xyz":
+    public = root / "public"
+    if (public / "CNAME").read_text().strip() != "judyzhu.xyz":
         raise ValueError("The main site's CNAME must remain judyzhu.xyz.")
-    source = (root / "bakery.html").read_text()
+    source = (public / "bakery.html").read_text()
     if source.count(BEGIN) != source.count(END) or source.count(BEGIN) > 1:
         raise ValueError("Unexpected migration markers in bakery.html.")
     if BEGIN in source and source.index(BEGIN) > source.index(END):
@@ -73,7 +74,7 @@ def site_files(root=ROOT):
         if url.netloc == urlsplit(TARGET).netloc and url.path.lstrip("/") not in ASSETS:
             raise ValueError(f"Local asset missing from export: {ref}")
     files = {"index.html": source.encode()}
-    files.update({name: (root / name).read_bytes() for name in ASSETS})
+    files.update({name: (public / name).read_bytes() for name in ASSETS})
     files["CNAME"] = b"bakery.judyzhu.xyz\n"
     files[".nojekyll"] = b""
     files["LICENSE"] = (root / "LICENSE").read_bytes()
@@ -134,7 +135,7 @@ def verify(root=ROOT, fetcher=fetch):
 
 def activate(root=ROOT, fetcher=fetch):
     verify(root, fetcher)
-    path = root / "bakery.html"
+    path = root / "public" / "bakery.html"
     source = REDIRECT_BLOCK.sub("", path.read_text())
     redirect = f"""{BEGIN}
   <link rel="canonical" href="{TARGET}" />
@@ -163,7 +164,7 @@ def main():
         elif args.command == "activate-redirect":
             activate()
         else:
-            path = ROOT / "bakery.html"
+            path = ROOT / "public" / "bakery.html"
             path.write_text(REDIRECT_BLOCK.sub("", path.read_text()))
             print("Disabled the legacy-page redirect locally. Publish bakery.html to restore the old page.")
     except (ValueError, OSError, HTTPError, URLError) as error:

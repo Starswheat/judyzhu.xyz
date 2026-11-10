@@ -68,6 +68,10 @@ jobs:
         env:
           WISHLIST_BUILD_DIR: ${{ github.workspace }}/wishlist/dist/client
 
+      - name: Verify portfolio routes and legacy exports
+        run: npm test
+        working-directory: portfolio
+
       - name: Upload compiled site
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:

@@ -1,15 +1,15 @@
-import { about, experience, reading, site } from '../content';
+import { about, reading, site } from '../content';
+import OrganizationRotation from '../components/OrganizationRotation';
 
 // The ids match the anchors older links point at: #hello, #experience, #shelf.
 export default function About() {
   return <>
     <h1 id="hello">{site.name} <span lang="zh-Hans">{site.nameZh}</span></h1>
-    {about.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+    <p>{about.intro}</p>
+    <p id="experience">{about.experience}</p>
+    {about.personal.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
 
-    <h2 id="experience">Experience</h2>
-    <ul className="rows experience">
-      {experience.map(item => <li key={item.company}><span>{item.company}</span><span>{item.role}</span><span>{item.years}</span></li>)}
-    </ul>
+    <OrganizationRotation />
 
     <h2 id="shelf">Reading</h2>
     <ul className="rows">
