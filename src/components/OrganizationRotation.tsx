@@ -20,7 +20,9 @@ export default function OrganizationRotation() {
             key={organization.name}
             className={`organization-logo organization-logo--${organization.style}`}
           >
-            <img src={organization.logo} alt={duplicate ? '' : organization.name} draggable={false} />
+            <a href={organization.href} tabIndex={duplicate ? -1 : undefined}>
+              <img src={organization.logo} alt={duplicate ? '' : organization.name} draggable={false} />
+            </a>
           </li>)}
         </ul>)}
       </div>

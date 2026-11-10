@@ -53,7 +53,6 @@ export const designSystem = {
 export const elsewhere = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/xingyzhu/' },
   { label: 'GitHub', href: 'https://github.com/Starswheat' },
-  { label: 'Instagram', href: 'https://www.instagram.com/judyfruitee/' },
   { label: 'Substack', href: 'https://xingyzhu.substack.com/' },
 ];
 
@@ -73,11 +72,11 @@ export const paintings = [
 ];
 
 export const about = {
-  intro: 'I’m a data analyst at Tive in Boston, where I build the pipelines and models behind our supply chain analytics (Snowflake, dbt, Airflow). Recent work includes churn prediction, cellular dead-zone mapping, and evals for AI agents. I studied Data Theory at UCLA, class of 2025.',
-  experience: 'Before Tive, I worked in enterprise marketing at Estée Lauder Companies and biotech investment banking at Huatai International. Earlier, I handled copyright and licensing for music demos at Avex Music Group, automated manufacturing data workflows at Bosch, and researched autism spectrum disorder at the Chinese Academy of Sciences.',
+  intro: 'I’m a data analyst at Tive in Boston, where I build the pipelines and models that underpin our supply chain analytics. Recent work spans churn prediction, cellular dead-zone mapping, and evals for AI agents. I studied Data Theory at UCLA and graduated in 2025.',
+  experience: 'Before Tive, I worked in enterprise marketing at Estée Lauder Companies and in biotech investment banking at Huatai International. Earlier still, I handled copyright and licensing for music demos at Avex Music Group, automated manufacturing data workflows at Bosch, and researched autism spectrum disorder at the Chinese Academy of Sciences.',
   personal: [
-    'I grew up in Suzhou, China, and San Jose, California. I speak Mandarin, Shanghainese, Japanese, and English. I love fresh ideas and good design. I consume way more than I create. Calling it research for now.',
-    'Very opinionated about food. Beli top 1% worldwide, for what it’s worth. I also finished a baking course at Le Cordon Bleu, love working out, and made it through HYROX Singles. I’ve been flying internationally in economy since I was 12, so I’m pretty sure I’ve evolved past jet lag.',
+    'Raised in Suzhou, China, and San Jose, California, I’ve been flying internationally in economy since I was twelve, long enough that I’m pretty sure I’ve evolved past jet lag. I speak Mandarin, Shanghainese, Japanese, and English.',
+    'I love chic designs, though my mind still lingers in a 16th-century Suzhou garden, and my palate is shaped by the same forces: terroir and the seasons. Somehow I’m in Beli’s top 1% worldwide. I took a baking course at Le Cordon Bleu, then burned it all off at HYROX Singles.',
   ],
 };
 
@@ -92,11 +91,11 @@ export const organizationRotation = {
   pause: 'Pause logo rotation',
   resume: 'Resume logo rotation',
   organizations: [
-    { name: 'Tive', logo: tiveLogo, style: 'tive' },
-    { name: 'Estée Lauder Companies', logo: elcLogo, style: 'elc' },
-    { name: 'Huatai International', logo: huataiLogo, style: 'huatai' },
-    { name: 'Avex Music Group', logo: avexLogo, style: 'avex' },
-    { name: 'Bosch', logo: boschLogo, style: 'bosch' },
-    { name: 'Chinese Academy of Sciences', logo: casLogo, style: 'cas' },
+    { name: 'Tive', logo: tiveLogo, style: 'tive', href: 'https://tive.ai/' },
+    { name: 'Estée Lauder Companies', logo: elcLogo, style: 'elc', href: 'https://www.elcompanies.com/en/' },
+    { name: 'Huatai International', logo: huataiLogo, style: 'huatai', href: 'https://www.htsc.com.hk/en' },
+    { name: 'Avex Music Group', logo: avexLogo, style: 'avex', href: 'https://avex.com/us/amg' },
+    { name: 'Bosch', logo: boschLogo, style: 'bosch', href: 'https://www.bosch.com/' },
+    { name: 'Chinese Academy of Sciences', logo: casLogo, style: 'cas', href: 'http://english.cebsit.cas.cn/' },
   ],
 };
