@@ -25,11 +25,12 @@
   --space-24: 96px;
   --page-width: 880px;
   --text-width: 62ch;
+  --experience-date-width: 10ch;
   --target: 44px;
   --radius: 10px;
   --logo-filter: brightness(0) invert(1);
   --logo-detail-filter: grayscale(1) contrast(4) invert(1);
-  --logo-reverse-filter: grayscale(1) brightness(2) contrast(4);
+  --logo-reverse-filter: grayscale(1) contrast(2);
   --logo-blend: screen;
   --logo-opacity: .62;
 }
@@ -47,7 +48,7 @@
   --color-scrim: rgba(36, 35, 32, .55);
   --logo-filter: brightness(0);
   --logo-detail-filter: grayscale(1) contrast(4);
-  --logo-reverse-filter: grayscale(1) brightness(2) contrast(4) invert(1);
+  --logo-reverse-filter: grayscale(1) contrast(2) invert(1);
   --logo-blend: multiply;
 }
 
@@ -130,6 +131,9 @@ main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
 .rows li > span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 .detail-label { display: flex; align-items: center; gap: var(--space-3); }
 .detail-value { align-self: center; }
+.detail-list--dated li { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) var(--experience-date-width); column-gap: var(--space-4); }
+.detail-list--dated .detail-value { text-align: right; }
+.detail-date { align-self: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .organization-emblem { flex: none; width: var(--space-6); height: var(--space-6); overflow: hidden; filter: var(--logo-filter); opacity: var(--logo-opacity); }
 .organization-emblem--huatai, .organization-emblem--cas { filter: var(--logo-detail-filter); mix-blend-mode: var(--logo-blend); }
 .organization-emblem--elc { filter: var(--logo-reverse-filter); mix-blend-mode: var(--logo-blend); }
@@ -150,6 +154,10 @@ main { flex: 1; padding: var(--space-16) 0 var(--space-24); outline: none; }
   .detail-list li { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
   .rows.detail-list li > .detail-value { text-align: left; }
   .detail-list .has-emblem > .detail-value { padding-left: calc(var(--space-6) + var(--space-3)); }
+  .detail-list--dated li { grid-template-columns: minmax(0, 1fr) max-content; column-gap: var(--space-4); }
+  .detail-list--dated .detail-label { grid-column: 1; grid-row: 1; }
+  .detail-list--dated .detail-value { grid-column: 1 / -1; grid-row: 2; }
+  .detail-list--dated .detail-date { grid-column: 2; grid-row: 1; align-self: start; }
   main { padding: var(--space-12) 0 var(--space-16); }
   h1 { margin-bottom: var(--space-8); }
 }

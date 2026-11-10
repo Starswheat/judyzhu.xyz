@@ -7,7 +7,7 @@ import balloons from './assets/paintings/balloon-sky-scan.jpg';
 import horse from './assets/paintings/white-horse-scan.jpg';
 import pink from './assets/paintings/pink-currents-scan.jpg';
 import tiveLogo from './assets/organizations/tive.svg';
-import elcLogo from './assets/organizations/estee-lauder-emblem.ico';
+import elcLogo from './assets/organizations/estee-lauder-emblem.png';
 import huataiLogo from './assets/organizations/huatai-international.png';
 import avexLogo from './assets/organizations/avex.png';
 import boschLogo from './assets/organizations/bosch.svg';
@@ -72,11 +72,11 @@ export const paintings = [
 ];
 
 export const about = {
-  intro: 'I’m a data analyst at Tive in Boston, where I build the pipelines and models behind our supply chain analytics (Snowflake, dbt, Airflow). Recent work includes churn prediction, cellular dead-zone mapping, and evals for an AI agent. I studied Data Theory at UCLA, class of 2025.',
+  intro: 'I’m a data analyst at Tive in Boston, where I build the pipelines and models behind our supply chain analytics (Snowflake, dbt, Airflow). Recent work includes churn prediction, cellular dead-zone mapping, and evals for AI agents. I studied Data Theory at UCLA, class of 2025.',
   headings: { experience: 'Experience', reading: 'Reading' },
   personal: [
     'I grew up in Suzhou, China, and San Jose, California. I speak Mandarin, Shanghainese, Japanese, and English. I love fresh ideas and good design. I consume way more than I create. Calling it research for now.',
-    'Very opinionated about food. Beli top 1% worldwide, for what it’s worth. I also finished a baking course at Le Cordon Bleu, love working out, and made it through HYROX. I’ve been flying internationally in economy since I was 12, so I’m pretty sure I’ve evolved past jet lag.',
+    'Very opinionated about food. Beli top 1% worldwide, for what it’s worth. I also finished a baking course at Le Cordon Bleu, love working out, and made it through HYROX single. I’ve been flying internationally in economy since I was 12, so I’m pretty sure I’ve evolved past jet lags.',
   ],
 };
 
@@ -87,10 +87,10 @@ export const reading = [
 ];
 
 export const experience = [
-  { label: 'Tive', detail: 'Data pipelines & models', emblem: { image: tiveLogo, width: 114, height: 38, viewBox: '0 0 32 38', style: 'tive' } },
-  { label: 'Estée Lauder Companies', detail: 'Enterprise marketing', emblem: { image: elcLogo, width: 16, height: 16, viewBox: '1 3 14 9', style: 'elc' } },
-  { label: 'Huatai International', detail: 'Biotech investment banking', emblem: { image: huataiLogo, width: 204, height: 66, viewBox: '4 8 52 50', style: 'huatai' } },
-  { label: 'Avex Music Group', detail: 'Copyright & licensing', emblem: { image: avexLogo, width: 214, height: 50, viewBox: '146 0 68 50', style: 'avex' } },
-  { label: 'Bosch', detail: 'Manufacturing data automation', emblem: { image: boschLogo, width: 433, height: 97, viewBox: '0 0 97 97', style: 'bosch' } },
-  { label: 'Chinese Academy of Sciences', detail: 'Autism spectrum disorder research', emblem: { image: casLogo, width: 614, height: 140, viewBox: '0 0 140 140', style: 'cas' } },
+  { label: 'Tive', detail: 'Data Analyst', date: 'Now', emblem: { image: tiveLogo, width: 114, height: 38, viewBox: '0 0 32 38', style: 'tive' } },
+  { label: 'Estée Lauder Companies', detail: 'Consumer Intelligence Assistant Manager (Enterprise Marketing & Data)', date: '2024', emblem: { image: elcLogo, width: 48, height: 48, viewBox: '0 0 48 48', style: 'elc' } },
+  { label: 'Huatai International', detail: 'Investment Banking Summer Analyst (Biopharma)', date: '2022, 2023', emblem: { image: huataiLogo, width: 204, height: 66, viewBox: '4 8 52 50', style: 'huatai' } },
+  { label: 'Avex Music Group', detail: 'Recording Studio A&R', date: '2022–2023', emblem: { image: avexLogo, width: 214, height: 50, viewBox: '146 0 68 50', style: 'avex' } },
+  { label: 'Bosch', detail: 'Data Science Intern', date: '2022', emblem: { image: boschLogo, width: 433, height: 97, viewBox: '0 0 97 97', style: 'bosch' } },
+  { label: 'Institute of Neuroscience', detail: 'Research Assistant', date: '2018–2020', emblem: { image: casLogo, width: 614, height: 140, viewBox: '0 0 140 140', style: 'cas' } },
 ];
