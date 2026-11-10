@@ -74,9 +74,9 @@ export const paintings = [
 
 export const about = {
   intro: 'I’m a data analyst at Tive in Boston, working on supply chain analytics. I studied Data Theory at UCLA and graduated in 2025.',
-  experience: 'Before Tive, I worked in enterprise marketing at Estée Lauder Companies and biotech investment banking at Huatai International. Earlier, I wrote music copy at Avex Music Group, automated manufacturing data workflows at Bosch, and researched autism spectrum disorder at the Chinese Academy of Sciences.',
+  experience: 'Before Tive, I worked in enterprise marketing at Estée Lauder Companies and biotech investment banking at Huatai International. Earlier, I handled copyright and licensing for music demos at Avex Music Group, automated manufacturing data workflows at Bosch, and researched autism spectrum disorder at the Chinese Academy of Sciences.',
   personal: [
-    'I grew up in Suzhou, China, and speak Mandarin, Shanghainese, Japanese, and English. I love fresh ideas and good design. I consume way more than I create. Calling it research for now.',
+    'I grew up in Suzhou, China, and San Jose, California. I speak Mandarin, Shanghainese, Japanese, and English. I love fresh ideas and good design. I consume way more than I create. Calling it research for now.',
     'Very opinionated about food. Beli top 1% worldwide, for what it’s worth. I also finished a baking course at Le Cordon Bleu, love working out, and made it through HYROX. I’ve been flying internationally in economy since I was 12, so I’m pretty sure I’ve evolved past jet lag.',
   ],
 };
